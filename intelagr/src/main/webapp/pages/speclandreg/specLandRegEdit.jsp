@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="/tags/simple" %>
 <!DOCTYPE html>
 <html style="width:100%;height:100%;overflow:hidden">
 <head>
@@ -15,10 +17,10 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/upload.js"></script>
 	<script>
 		var root = "${pageContext.request.contextPath}";
 	</script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/upload.js"></script>
 
 </head>
 <body class="easyui-layout">
@@ -56,24 +58,22 @@
 					<tr>
 						<td class="table_common_td_label_style">申请批次号：</td>
 						<td class="table_common_td_txt_style">
-							<input type="hidden" name="applyBatchNo" value="TX20170521000006">
-							TX20170521000006
+							<input type="hidden" name="applyBatchNo" value="${result }">
+							${result }
 						</td>
 					</tr>
 					<tr> 
 						<td class="table_common_td_label_style">年度：</td>
 						<td class="table_common_td_txt_style editableFalse">
 							
-
-
-		<select id="year" name="year" class="easyui-combobox" style="width:187px;height:25px" data-options="editable:false">
-
-			<option value="2015">2015年</option>
-
-			<option value="2014">2014年</option>
-
-		</select>
-
+<%-- 
+ 		<select id="year" name="year" class="easyui-combobox" style="width:187px;height:25px" data-options="editable:false">
+			<option value="" selected>-=请选择=-</option>
+			<c:forEach items="${yearList }" var="y">
+			<option value="${y.yearCode }">${y.yearName }</option>
+			</c:forEach>
+		</select>   --%>
+ <s:select name="year" id="year" entityName="yearcode"  hasPleaseSelectOption="true"></s:select>  
 		 <script type="text/javascript">
 
 			 $(document).ready(function(){ 
@@ -98,84 +98,14 @@
 						<td class="table_common_td_label_style">企业：</td>
 						<td class="table_common_td_txt_style editableFalse">
 							
-							
-								
 
-		<select id="companyCode1" name="companyCode" class="easyui-combobox" style="width:187px;height:25px" data-options="editable:true">
-<option value="" selected>-=请选择=-</option>
-			<option value="GS001">五常市长盛种业有限公司</option>
-
-			<option value="GS002">五常市利元种业有限公司</option>
-
-			<option value="GS003">五常市龙洋种子有限公司</option>
-
-			<option value="GS004">黑龙江阳光种业有限公司</option>
-
-			<option value="GS005">五常市神农天源种子有限公司</option>
-
-			<option value="GS006">五常市葵花阳光农业科技服务有限公司</option>
-
-			<option value="GS007">东方粮仓种业科技发展有限公司</option>
-
-			<option value="GS008">五常沃科收种业有限责任公司</option>
-
-			<option value="GS009">五常市宏运种业有限公司</option>
-
-			<option value="GS010">五常市绿珠种业科技有限公司</option>
-
-			<option value="GS011">黑龙江方圆农业有限责任公司</option>
-
-			<option value="GS012">五常市丰源农业科技创新有限责任公司</option>
-
-			<option value="GS013">哈尔滨盛世百年农业有限公司</option>
-
-			<option value="GS100">五常市金福粮油有限公司</option>
-
-			<option value="GS101">五常市汤洪斌水稻种植农民专业合作社</option>
-
-			<option value="GS102">五常市农之坊水稻种植农民专业合作社</option>
-
-			<option value="GS103">五常市浩海水稻种植农民专业合作社</option>
-
-			<option value="GS104">五常市首誉水稻种植农民专业合作社</option>
-
-			<option value="GS105">五常市百谷香水稻种植农民专业合作社</option>
-
-			<option value="GS106">五常市雪国粮仓水稻种植专业合作社</option>
-
-			<option value="GS107">五常市明栎水稻种植专业合作社</option>
-
-			<option value="GS108">五常市永顺丰水稻种植农民专业合作社</option>
-
-			<option value="GS109">五常市秋然稻香水稻种植农民专业合作社</option>
-
-			<option value="GS110">五常市千盈水稻种植专业合作社</option>
-
-			<option value="GS111">五常裕禾田水稻种植农民专业合作社</option>
-
-			<option value="GS112">五常市曾氏水稻种植专业合作社</option>
-
-			<option value="GS113">五常市官仓稻场水稻种植农民专业合作社</option>
-
-			<option value="GS114">五常市海兴水稻种植农民专业合作社</option>
-
-			<option value="GS115">五常市积养源水稻种植农民专业合作社</option>
-
-			<option value="GS116">五常市那军水稻种植农民专业合作社</option>
-
-			<option value="GS117">五常市德双水稻种植专业合作社</option>
-
-			<option value="GS118">五常市康基水稻种植专业合作社</option>
-
-			<option value="GS119">双涛水稻种植合作社</option>
-
-			<option value="GS120">五常市小稻夫水稻种植农民专业合作社</option>
-
-			<option value="GS121">五常市郑文波水稻种植专业合作社</option>
-
-			<option value="GS122">文龙水稻种植专业合作社</option>
-
-		</select>
+<%--   		<select id="companyCode1" name="companyCode" class="easyui-combobox" style="width:187px;height:25px" data-options="editable:true">
+			<option value="" selected>-=请选择=-</option>
+			<c:forEach items="${companyList }" var="cmp">
+			<option value="${cmp.companyCode }">${cmp.companyName }</option>
+			</c:forEach>
+		</select> --%>   
+ <s:select name="companyCode" id="companyCode1" entityName="company" codeKey="" hasPleaseSelectOption="true"></s:select>
 
 		 <input type="hidden" id="companyCode1_companyName" name="companyName" value="">
 
@@ -250,16 +180,13 @@
 							
 
 
-		<select id="contractorType" name="contractorType" class="easyui-combobox" style="width:187px;height:25px" data-options="editable:false">
-<option value="" selected>-=请选择=-</option>
-			<option value="01" selected>农户</option>
-
-			<option value="02">个人</option>
-
-			<option value="03">单位</option>
-
-		</select>
-
+<%--  		<select id="contractorType" name="contractorType" class="easyui-combobox" style="width:187px;height:25px" data-options="editable:false">
+			<c:forEach items="${contracList }" var="contrac">
+			<option value="${contrac.codeCode }" selected>${contrac.codeValue }</option>
+			</c:forEach>
+			<option value="" selected>-=请选择=-</option>
+		</select>  --%>
+ <s:select name="contractorType" id="contractorType" entityName="commondata" value="${pageModel.data.ContractorType }" codeKey="ContractorType" hasPleaseSelectOption="true"></s:select>		 
 		 <script type="text/javascript">
 
 			 $(document).ready(function(){ 
@@ -284,23 +211,13 @@
 						<td class="table_common_td_label_style">证件类型：</td>
 						<td class="table_common_td_txt_style editableFalse">
 							
-
-
-		<select id="idType" name="idType" class="easyui-combobox" style="width:187px;height:25px" data-options="editable:false">
-<option value="" selected>-=请选择=-</option>
-			<option value="01" selected>身份证</option>
-
-			<option value="02">军官证</option>
-
-			<option value="03">行政、企事业单位机构代码证或法人代码证</option>
-
-			<option value="04">户口簿</option>
-
-			<option value="05">护照</option>
-
-			<option value="06">其他证件</option>
-
-		</select>
+<%--  		<select id="idType" name="idType" class="easyui-combobox" style="width:187px;height:25px" data-options="editable:false">
+			<c:forEach items="${idTypeList }" var="idType">
+			<option value="${idType.codeCode }" selected>${idType.codeValue }</option>
+			</c:forEach>
+			<option value="" selected>-=请选择=-</option>
+		</select>  --%>
+ <s:select name="idType" id="idType" entityName="commondata" value="${pageModel.data.IDType }" codeKey="IDType" hasPleaseSelectOption="true"></s:select>	 
 
 		 <script type="text/javascript">
 
@@ -340,76 +257,67 @@
 						<td class="table_common_td_label_style">住址：</td>
 						<td colspan="3" class="table_common_td_txt_style editableFalse">
 							
-<span style='display:none'>
+<span >
 <select id='cityCode' name='cityCode' class='easyui-combobox' style='width:140px;height:25px' data-options='editable:false'>
+		<option value=''>==请选择==</option>
 		<option value='230184'>五常市</option>
 </select> 
 </span>
-<span id='townSpan'><select id='townCode' name='townCode' class='easyui-combobox' style='width:150px;height:25px' data-options='editable:false,required:true'>	<option value=''  selected>-=请选择=-</option>
-		<option value='100' >五常镇</option>
-		<option value='101' >拉林满族镇</option>
-		<option value='102' >山河镇</option>
-		<option value='103' >小山子镇</option>
-		<option value='104' >安家镇</option>
-		<option value='105' >牛家满族镇</option>
-		<option value='106' >杜家镇</option>
-		<option value='107' >背荫河镇</option>
-		<option value='111' >龙凤山镇</option>
-		<option value='110' >向阳镇</option>
-		<option value='200' >兴盛乡</option>
-		<option value='201' >志广乡</option>
-		<option value='203' >常堡乡</option>
-		<option value='206' >民意乡</option>
-		<option value='211' >民乐朝鲜族乡</option>
-		<option value='209' >红旗满族乡</option>
-		<option value='210' >八家子乡</option>
-		<option value='212' >营城子满族乡</option>
-		<option value='214' >长山乡</option>
-		<option value='215' >兴隆乡</option>
-		<option value='216' >二河乡</option>
-		<option value='108' >冲河镇</option>
-		<option value='109' >沙河子镇</option>
-</select></span>
+<span id='townSpan'><select id='townCode' name='townCode' class='easyui-combobox' style='width:150px;height:25px' data-options='editable:false,required:true'>
+	<option value=''  selected>-=请选择=-</option></select></span>
 <span id='countrySpan'><select id='countryCode' name='countryCode' class='easyui-combobox' style='width:140px;height:25px' data-options='editable:false'></select></span>
 <span id='groupSpan'><input class='easyui-textbox' type='text' id='groupName' name='groupName'  value='' style='width:260px;height:25px'></select></span>
 <script>
 $(document).ready(function(){
-	$('#cityCode').combobox({
-		valueField:'id',
-		textField:'text',
+	  $('#cityCode').combobox({  
+		valueField:'townCode',
+		textField:'townName',
 		onChange : function(){
 			var cityCode = $('#cityCode').combobox('getValue');
-			Public.ajaxGet('${pageContext.request.contextPath}/areaDevision/getTownsByCityCode', {cityCode:cityCode}, function(e) {
-				if (200 == e.status) {
-					$('#townCode').combobox('loadData', JSON.parse(e.data));
-				} else {
-					parent.parent.Public.tips({
-						type : 1,
-						content : '失败！' + e.msg
-					});
-				}
-			});
+			$.ajax({ 
+				url:"${pageContext.request.contextPath}/specLandReg/townCode",
+				type:"post",
+				data:{"cityCode":cityCode},
+				success:function(e){
+					if (200 == e.status) {
+						$('#townCode').combobox({valueField:'townCode',textField:'townName'});
+						$('#townCode').combobox('loadData', JSON.parse(JSON.stringify(e.data)));
+					} else {
+						parent.parent.Public.tips({
+							type : 1,
+							content : '失败！' + e.msg
+						});
+					}
+				},
+					dataType:"json"
+				});
 		}
-	});
+	}); 
     $('#townCode').combobox({
-        valueField:'id',
-        textField:'text',
+        valueField:'countryCode',
+        textField:'countryName',
         onChange: function(){
 			var cityCode = $('#cityCode').combobox('getValue');
 			var townCode = $('#townCode').combobox('getValue');
-			Public.ajaxGet('${pageContext.request.contextPath}/areaDevision/getCountrysByCityAndTownCode', {cityCode:cityCode,townCode:townCode}, function(e) {
-				if (200 == e.status) {
-					$('#countryCode').combobox({valueField:'id',textField:'text'});
-					$('#countryCode').combobox('loadData', JSON.parse(e.data));
-				} else {
-					parent.parent.Public.tips({
-						type : 1,
-						content : '失败！' + e.msg
-					});
-				}
-			});
+			$.ajax({ 
+				url:"${pageContext.request.contextPath}/specLandReg/countryCode",
+				type:"post",
+				data:{"townCode":townCode},
+				success:function(e){
+					if (200 == e.status) {
+						$('#countryCode').combobox({valueField:'countryCode',textField:'countryName'});
+						$('#countryCode').combobox('loadData', JSON.parse(JSON.stringify(e.data)));
+					} else {
+						parent.parent.Public.tips({
+							type : 1,
+							content : '失败！' + e.msg
+						});
+					}
+				},
+					dataType:"json"
+				});
         }
-    });
+    }); 
 });
 </script>
 
@@ -423,18 +331,14 @@ $(document).ready(function(){
 					<tr>
 						<td class="table_common_td_label_style">土地类型：</td>
 						<td class="table_common_td_txt_style editableFalse">
-							
 
-
-		<select id="landType" name="landType" class="easyui-combobox" style="width:100pxpx;height:25px" data-options="editable:false">
-
-			<option value="01">水田</option>
-
-			<option value="02">旱地</option>
-
-			<option value="03">其它</option>
-
-		</select>
+<%--  		<select id="landType" name="landType" class="easyui-combobox" style="width:100pxpx;height:25px" data-options="editable:false">
+			<c:forEach items="${plowlandTypeList }" var="plowlandType">
+			<option value="${plowlandType.codeCode }" selected>${plowlandType.codeValue }</option>
+			</c:forEach>
+			<option value="" selected>-=请选择=-</option>
+		</select>   --%>
+ <s:select name="landType" id="landType" entityName="commondata" value="${pageModel.data.PlowlandType }" codeKey="PlowlandType" hasPleaseSelectOption="true"></s:select>
 
 		 <script type="text/javascript">
 
@@ -467,20 +371,14 @@ $(document).ready(function(){
 							
 
 
-		<select id="landClass" name="landClass" class="easyui-combobox" style="width:110px;height:25px" data-options="editable:false">
-<option value="" selected>-=请选择=-</option>
-			<option value="01">承包地块</option>
+<%--  		<select id="landClass" name="landClass" class="easyui-combobox" style="width:110px;height:25px" data-options="editable:false">
+			<c:forEach items="${plowlandClassList }" var="plowlandClass">
+			<option value="${plowlandClass.codeCode }" selected>${plowlandClass.codeValue }</option>
+			</c:forEach>
+			<option value="" selected>-=请选择=-</option>
 
-			<option value="02">自留地</option>
-
-			<option value="03">机动地</option>
-
-			<option value="04">开荒地</option>
-
-			<option value="05">其它集体土地</option>
-
-		</select>
-
+		</select>  --%> 
+ <s:select name="landClass" id="landClass" entityName="commondata"  codeKey="PlowlandClass" hasPleaseSelectOption="true"></s:select>	
 		 <script type="text/javascript">
 
 			 $(document).ready(function(){ 
@@ -505,76 +403,66 @@ $(document).ready(function(){
 					</tr>
 					<tr>
 						<td class="table_common_td_label_style">地块位置：</td>
-						<td colspan="5" class="table_common_td_txt_style editableFalse">
+					<td colspan="5" class="table_common_td_txt_style editableFalse">
 							
-<span style='display:none'>
+<span>
 <select id='cityCodeDetail' name='cityCodeDetail' class='easyui-combobox' style='width:146px;height:25px' data-options='editable:false'>
+		<option value='' selected>-=请选择=-</option>
 		<option value='230184'>五常市</option>
 </select> 
 </span>
-<span id='townSpan'><select id='townCodeDetail' name='townCodeDetail' class='easyui-combobox' style='width:150px;height:25px' data-options='editable:false,required:true'>	<option value=''  selected>-=请选择=-</option>
-		<option value='100' >五常镇</option>
-		<option value='101' >拉林满族镇</option>
-		<option value='102' >山河镇</option>
-		<option value='103' >小山子镇</option>
-		<option value='104' >安家镇</option>
-		<option value='105' >牛家满族镇</option>
-		<option value='106' >杜家镇</option>
-		<option value='107' >背荫河镇</option>
-		<option value='111' >龙凤山镇</option>
-		<option value='110' >向阳镇</option>
-		<option value='200' >兴盛乡</option>
-		<option value='201' >志广乡</option>
-		<option value='203' >常堡乡</option>
-		<option value='206' >民意乡</option>
-		<option value='211' >民乐朝鲜族乡</option>
-		<option value='209' >红旗满族乡</option>
-		<option value='210' >八家子乡</option>
-		<option value='212' >营城子满族乡</option>
-		<option value='214' >长山乡</option>
-		<option value='215' >兴隆乡</option>
-		<option value='216' >二河乡</option>
-		<option value='108' >冲河镇</option>
-		<option value='109' >沙河子镇</option>
-</select></span>
+<span id='townSpan'><select id='townCodeDetail' name='townCodeDetail' class='easyui-combobox' style='width:150px;height:25px' data-options='editable:false,required:true'>	<option value=''  selected>-=请选择=-</option></select></span>
 <span id='countrySpan'><select id='countryCodeDetail' name='countryCodeDetail' class='easyui-combobox' style='width:146px;height:25px' data-options='editable:false'></select></span>
 <span id='groupSpan'><input class='easyui-textbox' type='text' id='groupNameDetail' name='groupNameDetail'  value='' style='width:265px;height:25px'></select></span>
 <script>
 $(document).ready(function(){
 	$('#cityCodeDetail').combobox({
-		valueField:'id',
-		textField:'text',
+		valueField:'townCode',
+		textField:'townName',
 		onChange : function(){
 			var cityCode = $('#cityCodeDetail').combobox('getValue');
-			Public.ajaxGet('${pageContext.request.contextPath}/areaDevision/getTownsByCityCode', {cityCode:cityCode}, function(e) {
-				if (200 == e.status) {
-					$('#townCodeDetail').combobox('loadData', JSON.parse(e.data));
-				} else {
-					parent.parent.Public.tips({
-						type : 1,
-						content : '失败！' + e.msg
-					});
-				}
-			});
+			$.ajax({ 
+				url:"${pageContext.request.contextPath}/specLandReg/townCode",
+				type:"post",
+				data:{"cityCode":cityCode},
+				success:function(e){
+					if (200 == e.status) {
+						$('#townCodeDetail').combobox({valueField:'townCode',textField:'townName'});
+						$('#townCodeDetail').combobox('loadData', JSON.parse(JSON.stringify(e.data)));
+					} else {
+						parent.parent.Public.tips({
+							type : 1,
+							content : '失败！' + e.msg
+						});
+					}
+				},
+					dataType:"json"
+				});
 		}
 	});
     $('#townCodeDetail').combobox({
-        valueField:'id',
-        textField:'text',
+    	valueField:'countryCode',
+        textField:'countryName',
         onChange: function(){
 			var cityCode = $('#cityCodeDetail').combobox('getValue');
 			var townCode = $('#townCodeDetail').combobox('getValue');
-			Public.ajaxGet('${pageContext.request.contextPath}/areaDevision/getCountrysByCityAndTownCode', {cityCode:cityCode,townCode:townCode}, function(e) {
-				if (200 == e.status) {
-					$('#countryCodeDetail').combobox({valueField:'id',textField:'text'});
-					$('#countryCodeDetail').combobox('loadData', JSON.parse(e.data));
-				} else {
-					parent.parent.Public.tips({
-						type : 1,
-						content : '失败！' + e.msg
-					});
-				}
-			});
+			$.ajax({ 
+				url:"${pageContext.request.contextPath}/specLandReg/countryCode",
+				type:"post",
+				data:{"townCode":townCode},
+				success:function(e){
+					if (200 == e.status) {
+						$('#countryCodeDetail').combobox({valueField:'countryCode',textField:'countryName'});
+						$('#countryCodeDetail').combobox('loadData', JSON.parse(JSON.stringify(e.data)));
+					} else {
+						parent.parent.Public.tips({
+							type : 1,
+							content : '失败！' + e.msg
+						});
+					}
+				},
+					dataType:"json"
+				});
         }
     });
 });
@@ -601,7 +489,7 @@ $(document).ready(function(){
 						</td>
 						<td class="table_common_td_label_style">经办日期：</td>
 						<td class="table_common_td_txt_style editableFalse">
-							<input class="easyui-datebox" name="operatorDate" id="operatorDate" value="Sun May 21 00:00:00 CST 2017"
+							<input class="easyui-datebox" name="operatorDate1" id="operatorDate" value="Sun May 21 00:00:00 CST 2017"
        data-options="required:true,showSeconds:false" style="width:100px" editable="false" >
 							<span class="span_common_mustinput_style">*</span>
 						</td>
@@ -762,24 +650,31 @@ $('.fancybox-buttons').fancybox({
 		if(!check()) return ;
 		var retFlag = '1';
 		var a = $('#editForm').toObject();
+
 		showLoading();
-		Public.ajaxPost('save', JSON.stringify(a), function(e) {
-			hideLoading();
-			if (200 == e.status) {
-				$.messager.alert('提示','操作成功。','info',function(){
-					if(retFlag == '1'){
-						retList();
-					    //document.location.href = '${pageContext.request.contextPath}/specLandReg/list?year=&companyCode=&beginDate=&endDate=&status=&page=&pageSize=';
-					}else if("edit" == "audit"){
-					    document.location.href = '${pageContext.request.contextPath}/specLandReg/listquery?year=&companyCode=&beginDate=&endDate=&status=&page=&pageSize=';
-					} else {
-					    document.location.href = '${pageContext.request.contextPath}/specLandReg/editInput';
-					}
-				});
-			} else {
-				$.messager.alert('错误','保存失败！' + e.msg,'error');
-			}
-		});
+		$.ajax({
+			url:"${pageContext.request.contextPath}/specLandReg/save",
+			type:"post",
+			data:a,
+			success:function(e){
+				hideLoading();
+				if (200 == e.status) {
+					$.messager.alert('提示','操作成功。','info',function(){
+						if(retFlag == '1'){
+							//location.href = "${pageContext.request.contextPath}/specLandReg/list";
+							retList();
+						}else if("edit" == "audit"){
+						    location.href = '${pageContext.request.contextPath}/specLandReg/listquery?year=&companyCode=&beginDate=&endDate=&status=&page=&pageSize=';
+						} else {
+						    location.href = '${pageContext.request.contextPath}/specLandReg/editInput';
+						}
+					});
+				} else {
+					$.messager.alert('错误','保存失败！' + e.msg,'error');
+				}
+			},
+			dataType:"json"
+		}); 
 	}
 	
 	function closeEdiDialog(){
@@ -820,10 +715,12 @@ function auditOpt( status ){
 function submitAudit(){
 	$("#statusEdit").val( "02" );
 	save();
+	location.href = "${pageContext.request.contextPath}/specLandReg/editInput";
 }
 
 function retList(){
-	var url = "${pageContext.request.contextPath}/specLandReg/list";
+	location.href = "${pageContext.request.contextPath}/specLandReg/editInput"
+	/* var url = "${pageContext.request.contextPath}/specLandReg/list";
 	url += "?year=";
 	url += "&page=";
 	url += "&pageSize=";
@@ -832,7 +729,7 @@ function retList(){
 	url += "&endDate=";
 	url += "&status=";
 	
-	document.location.href = url;
+	document.location.href = url; */
 }
 function check(){
 	if($("#companyCode1").combobox('getValue')==""){

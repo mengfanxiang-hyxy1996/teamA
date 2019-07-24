@@ -23,5 +23,7 @@
  			</if>
  		</where>
  	</select>
-
+<!--  	<select id="selectAll" resultMap="companyMap" >
+ 		select * from m_company
+ 	</select> -->
 </mapper>

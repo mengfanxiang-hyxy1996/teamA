@@ -29,6 +29,5 @@ public class CompanyService implements ICompanyService {
 		Map<String,Object> params = new HashMap<String,Object>();
 		params.put("companyType", companyType);
 		return companyMapper.select(params);
-	}
-
+	}	
 }

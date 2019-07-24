@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracle.intelagr.mapper.SpecLandRegMapper">
+	<resultMap type="SpecLandReg" id="specLandMap">
+		<id column="id" property="id" />
+		<result column="year" property="year" />
+		<result column="companyCode" property="companyCode" />
+		<result column="companyName" property="companyName" />
+		<result column="applyBatchNo" property="applyBatchNo" />
+		<result column="contractorType" property="contractorType" />
+		<result column="idType" property="idType" />
+		<result column="contractorID" property="contractorID" />
+		<result column="contractorName" property="contractorName" />
+		<result column="contractorTel" property="contractorTel" />
+		<result column="cityCode" property="cityCode" />
+		<result column="townCode" property="townCode" />
+		<result column="countryCode" property="countryCode" />
+		<result column="groupName" property="groupName" />
+		<result column="archiveAcreage" property="archiveAcreage" />
+		<result column="operatorName" property="operatorName" />
+		<result column="operatorDate" property="operatorDate" />
+		<result column="description" property="description" />
+		<result column="auditor" property="auditor" />
+		<result column="auditTime" property="auditTime" />
+		<result column="status" property="status" />
+		<result column="reason" property="reason" />
+		<result column="remark" property="remark" />
+		<result column="deleteFlag" property="deleteFlag" />
+		<association property="specLandDetail" javaType="SpecLandDetail">
+			<result column="hid" property="hid" />
+			<result column="actualMu" property="actualMu" />
+			<result column="landType" property="landType" />
+			<result column="landClass" property="landClass" />
+			<result column="cityCode" property="cityCode" />
+			<result column="townCode" property="townCode" />
+			<result column="countryCode" property="countryCode" />
+			<result column="groupName" property="groupName" />
+			<result column="remark" property="remark" />
+			<result column="deleteFlag" property="deleteFlag" />
+			<result column="createDate" property="createDate" />
+			<result column="createUserId" property="createUserId" />
+			<result column="updateUserId" property="updateUserId" />
+			<result column="updateDate" property="updateDate" />
+		</association>
+		<association property="areaDevision" javaType="AreaDevision" 
+		resultMap="com.oracle.intelagr.mapper.AreaDevisionMapper.areaDevisionMap"></association>
+	</resultMap>
+	<insert id="insert" parameterType="SpecLandReg" useGeneratedKeys="true"
+	keyProperty="id" keyColumn="id">
+		insert into b_speciallandreg
+		values (default,#{year},#{companyCode},
+		#{companyName},#{applyBatchNo},#{contractorType},
+		#{idType},#{contractorID},#{contractorName},null,
+		#{cityCode},#{townCode},#{countryCode},#{groupName},
+		#{archiveAcreage},#{operatorName},#{operatorDate},
+		#{description},#{auditor},#{auditTime},#{status},#{reason},#{remark},'N',#{createUserId},#{createDate},
+		#{updateUserId},#{updateDate})
+	</insert>
+</mapper>

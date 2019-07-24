@@ -8,6 +8,7 @@ import javax.servlet.jsp.JspException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.SynthesizedAnnotation;
 import org.springframework.web.servlet.tags.RequestContextAwareTag;
 
 import com.oracle.intelagr.entity.CommonData;
@@ -100,7 +101,6 @@ public class CommonDataTag extends RequestContextAwareTag {
 				buffer.append("\n\t\t\t<option value=\"" + commonData.getCodeCode() + "\">" + handlerStr(commonData.getCodeValue()) + "</option>\n");
 			}else{
 				List<CommonData> commonDatas = commonDataService.getCommonDataListByCodeKey(codeKey);
-	
 				for (CommonData commonData : commonDatas) {
 					if(value!=null && !"".equals(value) && value.equals(commonData.getCodeCode())){
 						buffer.append("\n\t\t\t<option value=\"" + commonData.getCodeCode() + "\" selected>" + handlerStr(commonData.getCodeValue()) + "</option>\n");

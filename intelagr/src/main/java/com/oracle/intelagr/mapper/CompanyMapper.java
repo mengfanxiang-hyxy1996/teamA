@@ -7,4 +7,5 @@ import com.oracle.intelagr.entity.Company;
 
 public interface CompanyMapper {
 	public List<Company> select(Map<String,Object> map);
+	public List<Company> selectAll();
 }

@@ -44,7 +44,6 @@ public class FileUploadController {
 	
 	@RequestMapping("/uploadInit")
 	public String uploadInit(Model model, String bizType, String uploadDlgId, HttpServletRequest request) {
-		System.out.println("------------controller--------------"+bizType+"---"+uploadDlgId);
 		if(StringUtil.isNullOrEmpty(uploadDlgId)){
 			uploadDlgId = "uploadDialog";
 		}
