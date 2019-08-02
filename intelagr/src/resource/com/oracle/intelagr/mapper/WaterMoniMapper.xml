@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oracle.intelagr.mapper.WaterMoniMapper">
+	<resultMap type="WaterMoni" id="waterMoniMapper">
+		<id column="id" property="id" />
+		<result column="monitorDate" property="monitorDate" />
+		<result column="monitorPointCode" property="monitorPointCode" />
+		<result column="monitorPointName" property="monitorPointName" />
+		<result column="ph" property="ph" />
+		<result column="doValue" property="doValue" />
+		<result column="codmn" property="codmn" />
+		<result column="bod5" property="bod5" />
+		<result column="nh3n" property="nh3n" />
+		<result column="tp" property="tp" />
+		<result column="codcr" property="codcr" />
+		<result column="remark" property="remark" />
+		<result column="deleteFlag" property="deleteFlag" />
+		<result column="createDate" property="createDate" />
+		<result column="createUserId" property="createUserId" />
+		<result column="updateUserId" property="updateUserId" />
+		<result column="updateDate" property="updateDate" />
+		<association property="moniPoint" javaType="MoniPoint"
+			resultMap="com.oracle.intelagr.mapper.MoniPointMapper.MoniPointMap"></association>
+	</resultMap>
+	<select id="select" resultMap="waterMoniMapper"
+		parameterType="java.util.Map">
+		select * from b_watermonitoring bw LEFT OUTER JOIN m_monitorpoint mm
+		on bw.MonitorPointCode =mm.MonitorPointCode
+		<where>
+		<if test="beginDate!=null">
+           	<![CDATA[ and bw.monitorDate >= #{beginDate} ]]>
+        </if>
+        <if test="endDate!=null">
+           	<![CDATA[ and bw.monitorDate <= #{endDate} ]]>
+        </if>  
+			and bw.deleteFlag = 'N'
+		</where>
+		
+		<if test="index!=null">
+		limit #{index},#{pageSize}
+		 </if>
+	</select>
+	<select id="selectAll" resultMap="waterMoniMapper">
+		select * from b_watermonitoring bw LEFT OUTER JOIN m_monitorpoint mm
+		on bw.MonitorPointCode =mm.MonitorPointCode
+	</select>
+	<select id="count" resultType="int"
+		parameterType="java.util.Map">
+		select count(*) from b_watermonitoring bw LEFT OUTER JOIN m_monitorpoint mm
+		on bw.MonitorPointCode =mm.MonitorPointCode
+		<where>
+			<if test="beginDate!=null">
+           	<![CDATA[ and bw.monitorDate >= #{beginDate} ]]>
+        </if>
+        <if test="endDate!=null">
+           	<![CDATA[ and bw.monitorDate <= #{endDate} ]]>
+        </if>
+			and bw.deleteFlag = 'N'
+		</where>
+	</select>
+	<select id="selectById" resultMap="waterMoniMapper"
+		parameterType="int">
+		select * from b_watermonitoring
+		where id = #{id} and
+		deleteFlag='N'
+	</select>
+	<insert id="insert" parameterType="WaterMoni">
+		insert into b_watermonitoring
+		values
+		(default,#{monitorDate},#{monitorPointCode},#{ph},#{doValue},#{codmn},#{bod5},#{nh3n},#{tp},#{codcr},#{remark},'N',#{createUserId},#{createDate},#{updateUserId},#{updateDate})
+	</insert>
+	<update id="update" parameterType="WaterMoni">
+		update b_watermonitoring
+		<set>
+			<if test="monitorDate!=null">
+				monitorDate=#{monitorDate},
+			</if>
+			<if test="monitorPointCode!=null and monitorPointCode!=''">
+				monitorPointCode=#{monitorPointCode},
+			</if>
+			<if test="ph!=null and ph!=''">
+				ph=#{ph},
+			</if>
+			<if test="doValue!=null and doValue!=''">
+				doValue=#{doValue},
+			</if>
+			<if test="codmn!=null and codmn!=''">
+				codmn=#{codmn},
+			</if>
+			<if test="bod5!=null and bod5!=''">
+				bod5=#{bod5},
+			</if>
+			<if test="nh3n!=null and nh3n!=''">
+				nh3n=#{nh3n},
+			</if>
+			<if test="tp!=null and tp!=''">
+				tp=#{tp},
+			</if>
+			<if test="codcr!=null and codcr!=''">
+				codcr=#{codcr},
+			</if>
+			<if test="remark!=null and remark!=''">
+				remark=#{remark},
+			</if>
+			<if test="deleteFlag!=null and deleteFlag!=''">
+				deleteFlag=#{deleteFlag},
+			</if>
+			<if test="createDate!=null">
+				createDate=#{createDate},
+			</if>
+			<if test="createUserId!=null and createUserId!=''">
+				createUserId=#{createUserId}
+			</if>
+			<if test="updateUserId!=null and updateUserId!=''">
+				updateUserId=#{updateUserId},
+			</if>
+			<if test="updateDate!=null">
+				updateDate=#{updateDate},
+			</if>
+
+		</set>
+		where id=#{id}
+	</update>
+	<update id="updateflag" parameterType="int[]" >
+	update b_watermonitoring set deleteflag='Y' where id in
+	<foreach collection="array" open="(" close=")" separator="," item="item" >
+	       #{item}                                                                                   
+	     </foreach>
+	</update>
+	
+</mapper>

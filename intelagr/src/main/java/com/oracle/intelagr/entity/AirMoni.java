@@ -2,6 +2,8 @@ package com.oracle.intelagr.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 
 public class AirMoni extends BaseEntity {
@@ -18,6 +20,18 @@ public class AirMoni extends BaseEntity {
 	private Float so2;
 	//NO2
 	private Float no2;
+	private MoniPoint moniPoint;
+	
+	public MoniPoint getMoniPoint() {
+		return moniPoint;
+	}
+	public void setMoniPoint(MoniPoint moniPoint) {
+		this.moniPoint = moniPoint;
+	}
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date beginDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date endDate;
 	public Integer getId() {
 		return id;
 	}
@@ -60,4 +74,17 @@ public class AirMoni extends BaseEntity {
 	public void setMonitorPointName(String monitorPointName) {
 		this.monitorPointName = monitorPointName;
 	}
+	public Date getBeginDate() {
+		return beginDate;
+	}
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
+	public Date getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+	
 }

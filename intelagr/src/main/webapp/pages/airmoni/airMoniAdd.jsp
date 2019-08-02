@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html style="width:100%;height:100%;overflow:hidden">
 <head>
@@ -16,14 +17,14 @@
 </head>
 <body class="easyui-layout">
 	<div region="center" border="false" style="padding: 5px;">
-		<form id="addFrom" class="easyui-form" method="post" data-options="novalidate:true">
+		<form id="addFrom" class="easyui-form" method="post" action="${pageContext.request.contextPath}/airMoni/save" data-options="novalidate:true">
 			<input name="id" value="" type="hidden">
 			<fieldset id="queryBlock" class="fieldset_common_style">
 				<table class="table_common_style">
 					<tr>
 		    			<td class="table_common_td_label_style">监测日期：</td>
 		    			<td class="table_common_td_txt_style">
-		    				<input class="easyui-datebox" id="monitorDate" name="monitorDate"  value="Sun May 21 00:00:00 CST 2017" 
+		    				<input class="easyui-datebox" id="monitorDate" name="monitorDate"  value="${airMoni.monitorDate}" 
 	            data-options="showSeconds:false" style="width:170px" editable="false">
 		    			</td>
 	    			</tr>
@@ -31,14 +32,13 @@
 						<td class="table_common_td_label_style">监测点位：</td>
 		    			<td class="table_common_td_txt_style">
 		    				<select name="monitorPointCode" class="easyui-combobox" style="width:170px;" data-options="editable:false">
+		    					<c:forEach items="${mlist }" var="m">
 
-	<option value="dq001" >大气121</option>
+								<option value="${m.monitorPointCode }" >${m.monitorPointName }</option>
 
-	<option value="dq2" >大气2</option>
+				    			</c:forEach>
+							</select>
 
-	<option value="sf" >ss</option>
-
-</select>
 		    			</td>
 	    			</tr>
 	    			<tr>
@@ -77,15 +77,15 @@
 function formCheck(){
 	if(!check()) return ;
 	var a = $('#addFrom').toObject();
-	Public.ajaxPost('save', JSON.stringify(a), function(e) {
+	 Public.ajaxPost('${pageContext.request.contextPath}/airMoni/save', JSON.stringify(a), function(e) {
 		if (200 == e.status) {
 			$.messager.alert('提示','保存成功。','info');
 			closeEdiDialog();
 			$('#inputForm').submit();
 		} else {
-			$.messager.alert('错误','处理失败。','error');
+			$.messager.alert('错误','保存失败','error');
 		}
-	});
+	}); 
 }
 
 function closeEdiDialog(){

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracle.intelagr.mapper.GeneLandRegMapper">
+	<resultMap type="GeneLandReg" id="geneLandRegMap">
+		<id column="id" property="id" />
+		<result column="year" property="year" />
+		<result column="companyCode" property="companyCode" />
+		<result column="companyName" property="companyName" />
+		<result column="applyBatchNo" property="applyBatchNo" />
+		<result column="auditor" property="auditor" />
+		<result column="auditTime" property="auditTime" />
+		<result column="status" property="status" />
+		<result column="reason" property="reason" />
+		<result column="mjsum" property="mjsum" />
+		<result column="remark" property="remark" />
+		<result column="deleteFlag" property="deleteFlag" />
+		<result column="createDate" property="createDate" />
+		<result column="createUserId" property="createUserId" />
+		<result column="updateDate" property="updateDate" />
+		<result column="updateUserId" property="updateUserId" />
+		<association property="geneLandRegD" javaType="GeneLandRegD">
+			<result column="hid" property="hid"/>
+			<result column="contractorType" property="contractorType"/>
+			<result column="idType" property="idType"/>
+			<result column="contractorID" property="contractorID"/>
+			<result column="contractorName" property="contractorName"/>
+			<result column="contractorTel" property="contractorTel"/>
+			<result column="cityCode" property="cityCode"/>
+			<result column="townCode" property="townCode"/>
+			<result column="countryCode" property="countryCode"/>
+			<result column="groupName" property="groupName"/>
+			<result column="archiveAcreage" property="archiveAcreage"/>
+			<result column="operatorName" property="operatorName"/>
+			<result column="operatorDate" property="operatorDate"/>
+			<result column="zmj" property="zmj"/>
+			<result column="yba" property="yba"/>
+			<result column="kba" property="kba"/>
+			<result column="contractTotalYield" property="contractTotalYield"/>
+			<result column="registeredTotalYield" property="registeredTotalYield"/>
+			<result column="townName" property="townName"/>
+			<result column="countryName" property="countryName"/>
+			<result column="idName" property="idName"/>
+			<result column="contractorTypeName" property="contractorTypeName"/>
+			<association property="areaDevision" javaType="AreaDevision">
+				<result column="cityCode" property="cityCode" />
+				<result column="cityName" property="cityName" />
+				<result column="townCode" property="townCode" />
+				<result column="townName" property="townName" />
+				<result column="countryCode" property="countryCode" />
+				<result column="countryName" property="countryName" />
+			</association>
+			<association property="geneLandDetaill" javaType="GeneLandDetail">
+				<result column="hid" property="hid"/>
+				<result column="landType" property="landType"/>
+				<result column="actualMu" property="actualMu"/>
+				<result column="measurementMu" property="measurementMu"/>
+				<result column="landClass" property="landClass"/>
+				<result column="landName" property="landName"/>
+				<result column="cityCode" property="cityCode"/>
+				<result column="townCode" property="townCode"/>
+				<result column="countryCode" property="countryCode"/>
+				<result column="groupName" property="groupName"/>
+				<result column="remark" property="remark"/>
+				<result column="deleteFlag" property="deleteFlag"/>
+				<result column="createDate" property="createDate"/>
+				<result column="createUserId" property="createUserId"/>
+				<result column="updateDate" property="updateDate"/>
+				<result column="updateUserId" property="updateUserId"/>
+				<association property="commonDataLandClass" javaType="CommonData"
+				resultMap="com.oracle.intelagr.mapper.CommonDataMapper.commonDataMap"></association>
+				<association property="commonDataLandType" javaType="CommonData" >
+					<result column="name1" property="codeValue"/>
+				</association>
+			</association>
+			<collection property="geneLandDetail" ofType="GeneLandDetail">
+				<result column="hid" property="hid"/>
+				<result column="landType" property="landType"/>
+				<result column="actualMu" property="actualMu"/>
+				<result column="measurementMu" property="measurementMu"/>
+				<result column="landClass" property="landClass"/>
+				<result column="landName" property="landName"/>
+				<result column="cityCode" property="cityCode"/>
+				<result column="townCode" property="townCode"/>
+				<result column="countryCode" property="countryCode"/>
+				<result column="groupName" property="groupName"/>
+				<result column="remark" property="remark"/>
+				<result column="deleteFlag" property="deleteFlag"/>
+				<result column="createDate" property="createDate"/>
+				<result column="createUserId" property="createUserId"/>
+				<result column="updateDate" property="updateDate"/>
+				<result column="updateUserId" property="updateUserId"/>
+			</collection>
+		</association>
+	</resultMap>
+	<select
+		id="selectLastId"
+		resultType="int">
+		select last_insert_id();
+	</select>
+	<select id="selectById" resultMap="geneLandRegMap" parameterType="int">
+		select * from b_generallandregh g  left join b_generallandregd gd on g.id = gd.hid
+		where g.id = #{id}
+	</select>
+	<select id="select" resultMap="geneLandRegMap" parameterType="java.util.Map">
+		select * from b_generallandregh g  left join b_generallandregd gd on g.id = gd.hid
+		<where>
+			<if test="year!=null and year!=''">
+				and g.year = #{year}
+			</if>
+			<if test="companyCode!=null and companyCode!=''">
+				and g.companyCode = #{companyCode}
+			</if>
+			<if test="status!=null and status!=''">
+				and g.status = #{status}
+			</if>
+			<if test="beginDate!=null and beginDate!=''">
+            <![CDATA[ and g.AuditTime >= #{beginDate} ]]>
+			</if>
+			<if test="endDate!=null and endDate!=''">
+           	<![CDATA[   and g.AuditTime <=  #{endDate} ]]>
+			</if>
+			and g.deleteFlag = 'N'
+		</where>
+		<if test="index!=null">
+		limit #{index},#{pageSize}
+		</if>
+	</select>
+	<select id="selectCount" resultType="int" parameterType="java.util.Map">
+		select count(*) from b_generallandregh g left join b_generallandregd gd on g.id = gd.hid
+		<where>
+			<if test="year!=null and year!=''">
+				and g.year = #{year}
+			</if>
+			<if test="companyCode!=null and companyCode!=''">
+				and g.companyCode = #{companyCode}
+			</if>
+			<if test="status!=null and status!=''">
+				and g.status = #{status}
+			</if>
+			<if test="beginDate!=null and beginDate!=''">
+            <![CDATA[ and g.AuditTime >= #{beginDate} ]]>
+			</if>
+			<if test="endDate!=null and endDate!=''">
+           <![CDATA[   and g.AuditTime <=  #{endDate} ]]>
+			</if>
+			and g.deleteFlag = 'N'
+		</where>
+	</select>
+	
+	<select id="selectByapplyBatchNo" resultMap="geneLandRegMap" parameterType="String">
+		select * from b_generallandregh h left join b_generallandregd d on h.id = d.hid
+		left join b_generallanddetails g on d.id = g.hid
+		where h.applyBatchNo = #{applyBatchNo}
+	</select>
+	
+
+	<insert
+		id="insert"
+		parameterType="GeneLandReg">
+		insert into b_generallandregh values
+		(default,#{year},#{companyCode},#{companyName},#{applyBatchNo},#{auditor},#{auditTime},#{status},#{reason},#{remark},#{deleteFlag},#{createUserId},#{createDate},#{updateUserId},#{updateDate})
+
+	</insert>
+	
+	
+	
+	<update id="update" parameterType="GeneLandReg">
+		update b_generallandregh set status = #{status},reason = #{reason} where applyBatchNo = #{applyBatchNo}
+	</update>
+	
+	<update id="delete" parameterType="int">
+		update b_generallandregh set deleteFlag = 'Y' where id = #{id}
+	</update>
+
+
+<!--qlz 写 -->
+	<select id="selectPT" resultMap="geneLandRegMap"
+		parameterType="GraiReg">
+		select * from
+		((select
+		Year,companyCode,contractorID,ActualMu,MeasurementMu,c.codeValue,c1.codeValue
+		name1,LandName
+		from b_GeneralLandRegH h
+		left outer join b_GeneralLandRegD d on h.id =
+		d.hid
+		left outer join b_GeneralLandDetails ds on d.id = ds.hid
+		left outer join commondata c on c.codeKey='PlowlandClass' and
+		c.codecode=ds.LandClass
+		left outer join commondata c1 on
+		c1.codeKey='PlowlandType' and c1.codecode=ds.LandType)
+		union
+		(select
+		Year,companyCode,contractorID,ActualMu,0
+		MeasurementMu,c.codeValue,c1.codeValue name1,'特殊土地' LandName
+		from b_SpecialLandReg r left outer join b_SpecialLandRegDetails d
+		on r.id = d.hid
+		left outer join commondata c on c.codeKey='PlowlandClass'
+		and c.codecode=d.LandClass
+		left outer join commondata c1 on
+		c1.codeKey='PlowlandType' and c1.codecode=d.LandType)) land
+		<where>
+			<if test="idNumber!=null and idNumber!=''">
+				and contractorID=#{idNumber}
+			</if>
+			<if test="companyCode!=null and companyCode!=''">
+				and h.companyCode=#{companyCode}
+			</if>
+		</where>
+	</select>
+	<!--qlz 写 -->
+	<select id="selectBa" resultMap="geneLandRegMap"
+		parameterType="java.util.Map">
+		select * from b_generallandregh h
+		left outer join b_generallandregd d on h.ID=d.HID
+		<where>
+			<if test="year!=null and year!=''">
+				and h.year = #{year}
+			</if>
+			<if test="companyCode!=null and companyCode!=''">
+				and h.companyCode = #{companyCode}
+			</if>
+			<if test="contractorID!=null and contractorID!=''">
+				and d.ContractorID = #{contractorID}
+			</if>
+			and h.deleteFlag = 'N'
+		</where>
+		<if test="index!=null">
+			limit #{index},#{pageSize}
+		</if>
+	</select>
+</mapper>

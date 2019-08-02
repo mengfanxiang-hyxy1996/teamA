@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="/tags/simple" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html style="width:100%;height:100%;overflow:hidden">
 <head>
@@ -18,12 +22,10 @@
 <body class="easyui-layout">
 	<div region="center" border="false" style="padding: 5px;">
 		<fieldset id="queryBlock" class="fieldset_common_style">
-			<form id="inputForm" name="inputForm" method="get"
-				action="../airMoni/search">
-				<input type='hidden' id="pageTotal" name="pageTotal"
-					value="0" /> <input type="hidden" id="page"
-					name="page" value="1"> <input type="hidden"
-					id="pageSize" name="pageSize" value="15">
+			<form id="inputForm" name="inputForm" method="get" action="${pageContext.request.contextPath}/airMoni/list">
+				<input type='hidden' id="pageTotal" name="pageTotal" value="${pageModel.totalCount }" />
+				<input type="hidden" id="page" name="page" value="${pageModel.page }">
+				<input type="hidden" id="pageSize" name="pageSize" value="${pageModel.pageSize }">
 				<table class="table_common_style">
 					<tr>
 						<td class="table_common_td_label_query_style">监测日期：</td>
@@ -34,10 +36,9 @@
 							class="easyui-datebox" id="endDate" name="endDate" value=""
 							data-options="required:false,showSeconds:false"
 							style="width: 150px" editable="false" /></td>
-						<td align="right" valign="bottom"><a href="#"
-							class="easyui-linkbutton" onclick="return form_check();"> <span
-								class="l-btn-left"><span
-									class="l-btn-text icon-search l-btn-icon-left">查询</span></span></a></td>
+						<td align="right" valign="bottom">
+						<a href="#"	class="easyui-linkbutton" onclick="form_check()"> <span	class="l-btn-left">
+						<span class="l-btn-text icon-search l-btn-icon-left">查询</span></span></a></td>
 					</tr>
 				</table>
 			</form>
@@ -58,7 +59,7 @@
 								class="l-btn-text icon-edit l-btn-icon-left">修改</span>
 						</span>
 					</a> <a href="#" class="easyui-linkbutton"
-						onclick="return deleteRecord();"> <span class="l-btn-left">
+						onclick="deleteRecord();"> <span class="l-btn-left">
 								<span class="l-btn-text icon-remove l-btn-icon-left">删除</span>
 						</span>
 					</a></td>
@@ -81,7 +82,19 @@
 				</tr>
 			</thead>
 			<tbody>
-				
+				<c:forEach items="${pageModel.result }" var="a" >
+				<tr>
+					<td height="30" align="center" nowrap>${a.id }</td>
+					<td height="30" align="center" nowrap><f:formatDate value="${a.monitorDate }" pattern="yyyy-MM-dd"/></td>
+					<td height="30" align="center" nowrap>${a.moniPoint.monitorPointName }</td>
+					<td height="30" align="center" nowrap>${a.tsp }</td>
+					<td height="30" align="center" nowrap>${a.so2 }</td>
+					<td height="30" align="center" nowrap>${a.no2 }</td>
+					<td height="30" align="center" nowrap>${a.createUserId }</td>
+					<td height="30" align="center" nowrap><f:formatDate value="${a.createDate }" pattern="yyyy-MM-dd"/></td>
+					
+				</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>
@@ -132,7 +145,7 @@
 						var length = rows.length;
 						for (var i = 0; i < rows.length; i++)
 							ids.push(rows[i].id);
-						Public.ajaxGet('delete', {
+						Public.ajaxGet('${pageContext.request.contextPath}/airMoni/delete', {
 							ids : ids
 						}, function(e) {
 							if (200 == e.status) {
@@ -168,7 +181,7 @@
 				height : 300,
 				closed : false,
 				cache : false,
-				href : 'airMoniEdit.jsp?id=' + id,
+			    href: '${pageContext.request.contextPath}/airMoni/edit?id='+id,
 				modal : true
 			});
 		}
@@ -180,7 +193,7 @@
 				height : 300,
 				closed : false,
 				cache : false,
-				 href: 'airMoniAdd.jsp',
+				href: '${pageContext.request.contextPath}/airMoni/add',
 				modal : true
 			});
 		}
@@ -218,7 +231,7 @@
 				height : 300,
 				closed : false,
 				cache : false,
-				href : 'view?id=' + id,
+				href: '${pageContext.request.contextPath}/airMoni/view?id='+ id,
 				modal : true
 			});
 		}

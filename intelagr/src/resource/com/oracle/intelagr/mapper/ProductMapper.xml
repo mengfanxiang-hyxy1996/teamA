@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oracle.intelagr.mapper.ProductMapper">
+	<resultMap type="Product" id="productMapper">
+		<id column="id" property="id" />
+		<result column="companyCode" property="companyCode" />
+		<result column="productCode" property="productCode" />
+		<result column="productName" property="productName" />
+		<result column="unit" property="unit" />
+		<result column="weight" property="weight" />
+		<result column="remark" property="remark" />
+		<result column="deleteFlag" property="deleteFlag" />
+		<result column="createUserId" property="createUserId" />
+		<result column="createDate" property="createDate" />
+		<association property="company" javaType="Company"
+			resultMap="com.oracle.intelagr.mapper.CompanyMapper.companyMap">
+		</association>
+	</resultMap>
+	<select id="select" parameterType="Product"
+		resultMap="productMapper">
+		select * from m_product p left outer join m_company c on
+		p.CompanyCode=c.CompanyCode
+		<where>
+			<if test="companyCode!=null and companyCode!=''">
+            p.companyCode=#{companyCode}
+			</if>
+			<if test="productName!=null and productName!=''">
+              and productName=#{productName}
+			</if>
+		</where>
+		<if test="index!=null">
+			limit #{index},#{pageSize}
+		</if>
+	</select>
+	<select id="count"  parameterType="java.util.Map"
+		resultType="int">
+		select count(*) from m_product p left outer join m_company c on
+		p.CompanyCode=c.CompanyCode
+		<where>
+			<if test="companyCode!=null and companyCode!=''">
+            p.companyCode=#{companyCode}
+			</if>
+			<if test="productName!=null and productName!=''">
+              and productName=#{productName}
+			</if>
+		</where>	
+	</select>
+</mapper>

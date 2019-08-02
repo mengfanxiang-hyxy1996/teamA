@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html style="width:100%;height:100%;overflow:hidden">
 <head>
@@ -22,9 +24,9 @@
 	<div region="center" border="false" style="padding:5px;">
 		<fieldset id="queryBlock" class="fieldset_common_style">
 			<form id="inputRegForm" name="inputRegForm" method="get" action="../geneLandReg/list">
-				<input type='hidden' id="pageTotal" name="pageTotal" value="0" />
-				<input type="hidden" id="page" name="page" value="1">
-				<input type="hidden" id="pageSize" name="pageSize" value="15">
+				<input type='hidden' id="pageTotal" name="pageTotal" value="${pageModel.totalCount }" />
+				<input type="hidden" id="page" name="page" value="${pageModel.page }">
+				<input type="hidden" id="pageSize" name="pageSize" value="${pageModel.pageSize }">
 				<table class="table_common_style">
 					<tr>
 						<td class="table_common_td_label_query_style">年度：</td>
@@ -32,11 +34,10 @@
 							
 
 		<select id="year" name="year" class="easyui-combobox" style="width:211px;height:25px" data-options="editable:true">
-
-			<option value="2015">2015年</option>
-
-			<option value="2014">2014年</option>
-
+		<option value="" selected>-=请选择=-</option>
+		<c:forEach items="${year }" var="y">
+			<option value="${y.yearCode }">${y.yearName }</option>
+		</c:forEach>
 		</select>
 
 		 <script type="text/javascript">
@@ -67,78 +68,10 @@
 	
 
 		<select id="companyCode" name="companyCode" class="easyui-combobox" style="width:187px;height:25px" data-options="editable:true">
-<option value="" selected>-=请选择=-</option>
-			<option value="GS001">五常市长盛种业有限公司</option>
-
-			<option value="GS002">五常市利元种业有限公司</option>
-
-			<option value="GS003">五常市龙洋种子有限公司</option>
-
-			<option value="GS004">黑龙江阳光种业有限公司</option>
-
-			<option value="GS005">五常市神农天源种子有限公司</option>
-
-			<option value="GS006">五常市葵花阳光农业科技服务有限公司</option>
-
-			<option value="GS007">东方粮仓种业科技发展有限公司</option>
-
-			<option value="GS008">五常沃科收种业有限责任公司</option>
-
-			<option value="GS009">五常市宏运种业有限公司</option>
-
-			<option value="GS010">五常市绿珠种业科技有限公司</option>
-
-			<option value="GS011">黑龙江方圆农业有限责任公司</option>
-
-			<option value="GS012">五常市丰源农业科技创新有限责任公司</option>
-
-			<option value="GS013">哈尔滨盛世百年农业有限公司</option>
-
-			<option value="GS100">五常市金福粮油有限公司</option>
-
-			<option value="GS101">五常市汤洪斌水稻种植农民专业合作社</option>
-
-			<option value="GS102">五常市农之坊水稻种植农民专业合作社</option>
-
-			<option value="GS103">五常市浩海水稻种植农民专业合作社</option>
-
-			<option value="GS104">五常市首誉水稻种植农民专业合作社</option>
-
-			<option value="GS105">五常市百谷香水稻种植农民专业合作社</option>
-
-			<option value="GS106">五常市雪国粮仓水稻种植专业合作社</option>
-
-			<option value="GS107">五常市明栎水稻种植专业合作社</option>
-
-			<option value="GS108">五常市永顺丰水稻种植农民专业合作社</option>
-
-			<option value="GS109">五常市秋然稻香水稻种植农民专业合作社</option>
-
-			<option value="GS110">五常市千盈水稻种植专业合作社</option>
-
-			<option value="GS111">五常裕禾田水稻种植农民专业合作社</option>
-
-			<option value="GS112">五常市曾氏水稻种植专业合作社</option>
-
-			<option value="GS113">五常市官仓稻场水稻种植农民专业合作社</option>
-
-			<option value="GS114">五常市海兴水稻种植农民专业合作社</option>
-
-			<option value="GS115">五常市积养源水稻种植农民专业合作社</option>
-
-			<option value="GS116">五常市那军水稻种植农民专业合作社</option>
-
-			<option value="GS117">五常市德双水稻种植专业合作社</option>
-
-			<option value="GS118">五常市康基水稻种植专业合作社</option>
-
-			<option value="GS119">双涛水稻种植合作社</option>
-
-			<option value="GS120">五常市小稻夫水稻种植农民专业合作社</option>
-
-			<option value="GS121">五常市郑文波水稻种植专业合作社</option>
-
-			<option value="GS122">文龙水稻种植专业合作社</option>
+			<option value="" selected>-=请选择=-</option>
+			<c:forEach items="${list }" var="c">
+				<option value="${c.companyCode }">${c.companyName}</option>
+			</c:forEach>
 
 		</select>
 
@@ -224,7 +157,7 @@
 							
 
 		<select id="status" name="status" class="easyui-combobox" style="width:187px;height:25px" data-options="editable:true">
-<option value="" selected>-=请选择=-</option>
+			<option value="" selected>-=请选择=-</option>
 			<option value="01">待申请</option>
 
 			<option value="02">已审核</option>
@@ -290,7 +223,7 @@
 			</tr>
 			</table>
 		</fieldset>	
-		<table id="data" class="easyui-datagrid"  pageSize="15" pageNumber="1">
+		<table id="data" class="easyui-datagrid"  pageSize="${pageModel.pageSize }" pageNumber="${pageModel.page }">
 			<thead>
 				<tr>
 					<th field="id" width="140" align="center" checkbox="true"></th>
@@ -308,7 +241,22 @@
 				</tr>
 			</thead>
 			<tbody>
-				
+				<c:forEach items="${pageModel.result }" var="gen">
+				<tr>
+					<td>${gen.id }</td>
+					<td>${gen.applyBatchNo }</td>
+					<td>${gen.year }</td>
+					<td>${gen.companyName }</td>
+					<td>${gen.createDate }</td>
+					<td>${gen.geneLandRegD.contractorName }</td>
+					<td>${gen.geneLandRegD.archiveAcreage }</td>
+					<td>${gen.status }</td>
+					<td>${gen.reason }</td>
+					<td>${gen.auditor }</td>
+					<td>${gen.auditTime }</td>
+					<td></td>
+				</tr>
+				</c:forEach>	
 				<tr>
 					<td></td>
 					<td></td>
@@ -316,18 +264,17 @@
 					<td></td>
 					<td></td>
 					<td>合计：</td>
-					<td>0.00</td>
+					<td>${mjsum}</td>
 					<td></td>
 					<td></td>
 					<td></td>
-					<td></td>
-				</tr>		
+				</tr>	
 			</tbody>
 		</table>
 	</div>
 	
 	<div id="flowDialog"></div>
-	
+	<div id="addDialog"></div>
 <script type="text/javascript">
 $(document).ready(function(){
 	 var winHeight = $(window).height();
@@ -352,7 +299,7 @@ $(document).ready(function(){
         fitColumns: false,
         checkOnSelect:false,
         //fit: true,
-        pageList: [15,20,25],
+        pageList: [5,10,15],
         pagePosition: "top"
 	});
 	
@@ -427,18 +374,32 @@ function deleteRecord(){
 	    for(var i=0; i<rows.length; i++) 
 		ids.push(rows[i].id);
 	    showLoading();
-		Public.ajaxGet('delete', {ids : ids}, function(e) {
+	    $.ajax({
+	    	url:"${pageContext.request.contextPath}/geneLandReg/delete",
+	    	data:{ids : ids},
+	    	type:"post",
+	    	success:function(e){
+	    		hideLoading();
+				if (200 == e.status) {
+					form_check();
+				} else{
+					$.messager.alert('错误','删除失败！','error');
+				}
+	    	},
+	    	dataType:"json"
+	    });
+		/* Public.ajaxGet('delete', {ids : ids}, function(e) {
 			hideLoading();
 			if (200 == e.status) {
 				form_check();
 			} else
 				$.messager.alert('错误','删除失败！' + e.msg,'error');
-		});
+		}); */
 	});
   	
 }
 function add(){
-	var url = "geneLandRegEdit.jsp";
+	var url = "${pageContext.request.contextPath}/geneLandReg/editInput";
 	document.location.href = url;
 }
 function getQueryCond(){
@@ -473,12 +434,22 @@ function edit(){
 		$.messager.alert('警告','已审核通过的备案土地不可再做此操作！','warning');
 		return false;
 	}
-	var id = rows[0].id;
+	var applyBatchNo = rows[0].applyBatchNo;
 	
-	var url = "${pageContext.request.contextPath}/geneLandReg/editInput?retFlag=1&id=" + id;
+	$('#addDialog').dialog({
+	    title: '修改地块信息',
+	    width: 800,
+	    height: 480,
+	    closed: false,
+	    cache: false,
+	    href: '${pageContext.request.contextPath}/geneLandReg/update?applyBatchNo='+applyBatchNo,
+	    modal: true
+	});
+	
+	/* var url = "${pageContext.request.contextPath}/geneLandReg/editInput?retFlag=1&id=" + id;
 	url += getQueryCond();
 	
-	document.location.href = url;
+	document.location.href = url; */
 }
 
 function form_check(){

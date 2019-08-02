@@ -1,80 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="/tags/simple" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html style="width:100%;height:100%;overflow:hidden">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>产品列表-五常优质水稻溯源监管平台</title>
-<link rel="stylesheet" type="text/css" href="../../style/index.css">
-<link rel="stylesheet" type="text/css" href="../../js/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="../../js/themes/icon.css">
-<link rel="stylesheet" type="text/css" href="../../js/themes/color.css">
-<script type="text/javascript" src="../../js/jquery.min.js"></script>
-<script type="text/javascript" src="../../js/common.js"></script>
-<script type="text/javascript" src="../../js/form2js.js"></script>
-<script type="text/javascript" src="../../js/json2.js"></script>
-<script type="text/javascript" src="../../js/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="../../js/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="../../js/ajaxfileupload.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/index.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/themes/color.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/form2js.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/json2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/ajaxfileupload.js"></script>
 </head>
 <body class="easyui-layout">
 	<div region="center" border="false" style="padding:5px;">	
 		<fieldset id="queryBlock" class="fieldset_common_style">
-			<form id="productForm" name="productForm" method="post" action="../../product/list?flag=2">
+			<form id="productForm" name="productForm" method="post" action="${pageContext.request.contextPath}/product/list">
 				<table class="table_common_style">
 					<tr>
 						<td class="table_common_td_label_query_style">企业名称：</td>
 						<td colspan="4">
-							
-
-		<select id="companyCode" name="companyCode" class="easyui-combobox" style="width:200px;height:25px" data-options="editable:true">
-<option value="" selected>-=请选择=-</option>
-			<option value="GS100">五常市金福粮油有限公司</option>
-
-			<option value="GS101">五常市汤洪斌水稻种植农民专业合作社</option>
-
-			<option value="GS102">五常市农之坊水稻种植农民专业合作社</option>
-
-			<option value="GS103">五常市浩海水稻种植农民专业合作社</option>
-
-			<option value="GS104">五常市首誉水稻种植农民专业合作社</option>
-
-			<option value="GS105">五常市百谷香水稻种植农民专业合作社</option>
-
-			<option value="GS106">五常市雪国粮仓水稻种植专业合作社</option>
-
-			<option value="GS107">五常市明栎水稻种植专业合作社</option>
-
-			<option value="GS108">五常市永顺丰水稻种植农民专业合作社</option>
-
-			<option value="GS109">五常市秋然稻香水稻种植农民专业合作社</option>
-
-			<option value="GS110">五常市千盈水稻种植专业合作社</option>
-
-			<option value="GS111">五常裕禾田水稻种植农民专业合作社</option>
-
-			<option value="GS112">五常市曾氏水稻种植专业合作社</option>
-
-			<option value="GS113">五常市官仓稻场水稻种植农民专业合作社</option>
-
-			<option value="GS114">五常市海兴水稻种植农民专业合作社</option>
-
-			<option value="GS115">五常市积养源水稻种植农民专业合作社</option>
-
-			<option value="GS116">五常市那军水稻种植农民专业合作社</option>
-
-			<option value="GS117">五常市德双水稻种植专业合作社</option>
-
-			<option value="GS118">五常市康基水稻种植专业合作社</option>
-
-			<option value="GS119">双涛水稻种植合作社</option>
-
-			<option value="GS120">五常市小稻夫水稻种植农民专业合作社</option>
-
-			<option value="GS121">五常市郑文波水稻种植专业合作社</option>
-
-			<option value="GS122">文龙水稻种植专业合作社</option>
-
-		</select>
+		<s:select name="companyCode" value="${pageModel.data.company.companyName}" id="companyCode1" entityName="Company" hasPleaseSelectOption="true" cssClass="easyui-combobox" width="150" height="25px">${pageModel.data.company.companyName }</s:select>	
 
 		 <input type="hidden" id="companyCode_companyName" name="companyName" value="">
 
@@ -166,55 +119,15 @@
 				</tr>
 			</thead>
 			<tbody>
-				
+				<c:forEach items="${pageModel.result }" var="p">
 				<tr>
-					<td height="120" align="center" nowrap><span>五常市金福粮油有限公司</span></td>
-					<td height="30" align="center" nowrap>GS100-0001</td>
-					<td height="30" align="center" nowrap>乔府大院-稻花香（1kg）</td>
-					<td height="30" align="center" nowrap>袋</td>
-					<td height="30" align="center" nowrap>1.0</td>
+					<td height="120" align="center" nowrap><span>${p.company.companyName }</span></td>
+					<td height="30" align="center" nowrap>${p.productCode }</td>
+					<td height="30" align="center" nowrap>${p.productName }</td>
+					<td height="30" align="center" nowrap>${p.unit }</td>
+					<td height="30" align="center" nowrap>${p.weight}</td>
 				</tr>
-				
-				<tr>
-					<td height="120" align="center" nowrap><span>五常市金福粮油有限公司</span></td>
-					<td height="30" align="center" nowrap>GS100-0002</td>
-					<td height="30" align="center" nowrap>乔府大院-稻花香（2kg）</td>
-					<td height="30" align="center" nowrap>袋</td>
-					<td height="30" align="center" nowrap>2.0</td>
-				</tr>
-				
-				<tr>
-					<td height="120" align="center" nowrap><span>五常市金福粮油有限公司</span></td>
-					<td height="30" align="center" nowrap>GS100-0003</td>
-					<td height="30" align="center" nowrap>乔府大院-稻花香（2.5kg）</td>
-					<td height="30" align="center" nowrap>袋</td>
-					<td height="30" align="center" nowrap>2.5</td>
-				</tr>
-				
-				<tr>
-					<td height="120" align="center" nowrap><span>五常市金福粮油有限公司</span></td>
-					<td height="30" align="center" nowrap>GS100-0004</td>
-					<td height="30" align="center" nowrap>乔府大院-稻花香（5kg）</td>
-					<td height="30" align="center" nowrap>袋</td>
-					<td height="30" align="center" nowrap>5.0</td>
-				</tr>
-				
-				<tr>
-					<td height="120" align="center" nowrap><span>五常市金福粮油有限公司</span></td>
-					<td height="30" align="center" nowrap>GS100-0005</td>
-					<td height="30" align="center" nowrap>乔府大院-稻花香（10kg）</td>
-					<td height="30" align="center" nowrap>袋</td>
-					<td height="30" align="center" nowrap>10.0</td>
-				</tr>
-				
-				<tr>
-					<td height="120" align="center" nowrap><span>五常市金福粮油有限公司</span></td>
-					<td height="30" align="center" nowrap>GS100-0006</td>
-					<td height="30" align="center" nowrap>乔府大院-稻花香（20kg）</td>
-					<td height="30" align="center" nowrap>袋</td>
-					<td height="30" align="center" nowrap>20.0</td>
-				</tr>
-						
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

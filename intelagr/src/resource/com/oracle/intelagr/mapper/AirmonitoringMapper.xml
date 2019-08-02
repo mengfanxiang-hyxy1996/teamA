@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oracle.intelagr.mapper.AirmonitoringMapper">
+	<resultMap type="AirMoni" id="airmonitoringMapper">
+		<id column="id" property="id" />
+		<result column="monitorDate" property="monitorDate" />
+		<result column="monitorPointCode" property="monitorPointCode" />
+		<result column="monitorPointName" property="monitorPointName" />
+		<result column="tsp" property="tsp" />
+		<result column="so2" property="so2" />
+		<result column="no2" property="no2" />
+		<result column="createUserId" property="createUserId" />
+		<result column="deleteFlag" property="deleteFlag" />
+		<result column="createDate" property="createDate" />
+		<association property="moniPoint" javaType="MoniPoint"
+			resultMap="com.oracle.intelagr.mapper.MoniPointMapper.MoniPointMap">
+		</association>
+	</resultMap>
+	<select id="select" resultMap="airmonitoringMapper" parameterType="java.util.Map">
+		select * from b_airmonitoring a left outer join m_monitorpoint m 
+		on a.monitorPointCode=m.monitorPointCode
+		<where>
+			<if test="beginDate!=null">
+           		<![CDATA[ and a.monitorDate >= #{beginDate} ]]>
+        	</if>
+        	<if test="endDate!=null">
+           		<![CDATA[ and a.monitorDate <= #{endDate} ]]>
+        	</if> 
+			 and a.deleteFlag='N'
+		</where>
+		<if test="index!=null">
+			limit #{index},#{pageSize}
+		</if>
+	</select>
+	<select id="selectAll" resultMap="airmonitoringMapper">
+		select * from b_airmonitoring bw LEFT OUTER JOIN m_monitorpoint mm
+		on bw.MonitorPointCode =mm.MonitorPointCode where bw.deleteFlag = 'N'
+	</select>
+	<insert id="insert" parameterType="AirMoni">
+		insert into
+		b_airmonitoring(id,monitorDate,monitorPointCode,tsp,so2,no2,DeleteFlag,CreateUserId,CreateDate,UpdateUserId,UpdateDate)
+		values(default,#{monitorDate},#{monitorPointCode},#{tsp},#{so2},#{no2},'N',#{createUserId},#{createDate},#{updateUserId},#{updateDate})
+	</insert>
+	<select id="count" resultType="int" parameterType="java.util.Map">
+		select count(*) from b_airmonitoring a left outer join m_monitorpoint m 
+		on a.monitorPointCode=m.monitorPointCode
+		<where>
+			<if test="beginDate!=null">
+           		<![CDATA[ and a.monitorDate >= #{beginDate} ]]>
+        	</if>
+        	<if test="endDate!=null">
+           		<![CDATA[ and a.monitorDate <= #{endDate} ]]>
+        	</if> 
+		and a.deleteFlag='N' 
+		</where>
+	</select>
+	<select id="selectById" resultMap="airmonitoringMapper"
+		parameterType="int">
+		select * from b_airmonitoring
+		where id = #{id} 
+	</select>
+	<update id="update" parameterType="AirMoni">
+		update b_airmonitoring
+		<set>
+			<if test="monitorDate!=null">
+				monitorDate=#{monitorDate},
+			</if>
+			<if test="monitorPointCode!=null and monitorPointCode!=''">
+				monitorPointCode=#{monitorPointCode},
+			</if>
+			<if test="tsp !=null and tsp !=''">
+				tsp=#{tsp},
+			</if>
+			<if test="so2 !=null and so2 !=''">
+				so2=#{so2},
+			</if>
+			<if test="no2 !=null and no2 !=''">
+				no2=#{no2},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	<update id="updateflag" parameterType="int[]" >
+	update b_airmonitoring set deleteflag='Y' where id in
+	<foreach collection="array" open="(" close=")" separator="," item="item" >
+	       #{item}                                                                                   
+	     </foreach>
+	</update>
+</mapper>

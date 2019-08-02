@@ -1,9 +1,11 @@
 package com.oracle.intelagr.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Peasant
 {
+	//test aatest 
 	private Integer id;
 	//承包方代码
 	private String contractorCode;
@@ -21,12 +23,12 @@ public class Peasant
 	private String contractorBirth;
 	//联系电话
 	private String contractorTel;
-	//所在市编码
+	/*//所在市编码
 	private String cityCode;
 	//所在乡编码
 	private String townCode;
 	//所在村编码
-	private String countryCode;
+	private String countryCode;*/
 	//所在村编码
 	private String groupName;
 	//邮政编码
@@ -67,7 +69,58 @@ public class Peasant
 	private Date surveyDate;
 	//调查记事
 	private String surveyMemo;
-		
+
+	
+	private AreaDevision areaDevision;
+	private List<Contract> contract;
+
+	
+	@Override
+	public String toString() {
+		return "Peasant [id=" + id + ", contractorCode=" + contractorCode + ", contractorName=" + contractorName
+				+ ", contractorID=" + contractorID + ", contractorIDType=" + contractorIDType + ", contractorAge="
+				+ contractorAge + ", contractorSex=" + contractorSex + ", contractorBirth=" + contractorBirth
+				+ ", contractorTel=" + contractorTel + ", groupName=" + groupName + ", contractorZipcode="
+				+ contractorZipcode + ", contractorhouseholdType=" + contractorhouseholdType + ", contractorType="
+				+ contractorType + ", contractId=" + contractId + ", contractorNation=" + contractorNation
+				+ ", rightId=" + rightId + ", attestor=" + attestor + ", attestMechanism=" + attestMechanism
+				+ ", attestDate=" + attestDate + ", attestNo=" + attestNo + ", landPurpose=" + landPurpose
+				+ ", rightGetWay=" + rightGetWay + ", contractStartDate=" + contractStartDate + ", contractYear="
+				+ contractYear + ", contractEndDate=" + contractEndDate + ", getLandPersonCount=" + getLandPersonCount
+				+ ", familyPersonCount=" + familyPersonCount + ", surveyDate=" + surveyDate + ", surveyMemo="
+				+ surveyMemo + ", areaDevision=" + areaDevision + ", contract=" + contract + ", geneLandRegD="
+				+ geneLandRegD + "]";
+	}
+
+	public AreaDevision getAreaDevision() {
+		return areaDevision;
+	}
+
+	public void setAreaDevision(AreaDevision areaDevision) {
+		this.areaDevision = areaDevision;
+	}
+
+	private List<GeneLandRegD> geneLandRegD;
+
+	
+
+	public List<GeneLandRegD> getGeneLandRegD() {
+		return geneLandRegD;
+	}
+
+	public void setGeneLandRegD(List<GeneLandRegD> geneLandRegD) {
+		this.geneLandRegD = geneLandRegD;
+	}
+
+	public List<Contract> getContract() {
+		return contract;
+	}
+
+	public void setContract(List<Contract> contract) {
+		this.contract = contract;
+	}
+
+
 	/** default constructor */
 	public Peasant() {
 	}
@@ -145,7 +198,7 @@ public class Peasant
 		this.contractorTel = contractorTel;
 	}
 
-	public String getCityCode() {
+	/*public String getCityCode() {
 		return cityCode;
 	}
 
@@ -167,7 +220,7 @@ public class Peasant
 
 	public void setCountryCode(String countryCode) {
 		this.countryCode = countryCode;
-	}
+	}*/
 
 	public String getGroupName() {
 		return groupName;

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracle.intelagr.mapper.GeneLandDetailMapper">
+
+	<resultMap type="GeneLandDetail" id="geneLandDetailMap">
+		<id column="id" property="id"/>
+		<result column="hid" property="hid"/>
+		<result column="landType" property="landType"/>
+		<result column="actualMu" property="actualMu"/>
+		<result column="measurementMu" property="measurementMu"/>
+		<result column="landClass" property="landClass"/>
+		<result column="landName" property="landName"/>
+		<result column="cityCode" property="cityCode"/>
+		<result column="townCode" property="townCode"/>
+		<result column="countryCode" property="countryCode"/>
+		<result column="groupName" property="groupName"/>
+		<result column="remark" property="remark"/>
+		<result column="deleteFlag" property="deleteFlag"/>
+		<result column="createDate" property="createDate"/>
+		<result column="createUserId" property="createUserId"/>
+		<result column="updateDate" property="updateDate"/>
+		<result column="updateUserId" property="updateUserId"/>
+		<association property="commonDataLandClass" javaType="CommonData"
+		resultMap="com.oracle.intelagr.mapper.CommonDataMapper.commonDataMap"></association>
+		<association property="commonDataLandType" javaType="CommonData" >
+			<result column="name1" property="codeValue"/>
+		</association>
+	</resultMap>
+	
+	<insert id="insert" parameterType="GeneLandDetail">
+		insert into b_generallanddetails values(default,#{hid},#{landType},#{actualMu},#{measurementMu},#{landClass},#{landName},#{cityCode},#{townCode},#{countryCode},#{groupName},#{remark}
+		,#{deleteFlag},#{createUserId},#{createDate},#{updateUserId},#{updateDate})
+	</insert>
+
+</mapper>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracle.intelagr.mapper.PeasantMapper">
+	<resultMap type="Peasant" id="peasantMap">
+		<id column="id" property="id" />
+		<result column="contractorCode" property="contractorCode" />
+		<result column="contractorName" property="contractorName" />
+		<result column="contractorID" property="contractorID" />
+		<result column="contractorIDType" property="contractorIDType" />
+		<result column="contractorAge" property="contractorAge" />
+		<result column="contractorSex" property="contractorSex" />
+		<result column="contractorBirth" property="contractorBirth" />
+		<result column="contractorTel" property="contractorTel" />
+		<!-- <result column="cityCode" property="cityCode" /> <result column="townCode" 
+			property="townCode" /> <result column="countryCode" property="countryCode" 
+			/> -->
+		<result column="groupName" property="groupName" />
+		<result column="contractorZipcode" property="contractorZipcode" />
+		<result column="contractorhouseholdType"
+			property="contractorhouseholdType" />
+		<result column="contractorType" property="contractorType" />
+		<result column="contractId" property="contractId" />
+		<result column="contractorNation" property="contractorNation" />
+		<result column="rightId" property="rightId" />
+		<result column="attestor" property="attestor" />
+		<result column="attestMechanism" property="attestMechanism" />
+		<result column="attestDate" property="attestDate" />
+		<result column="attestNo" property="attestNo" />
+		<result column="landPurpose" property="landPurpose" />
+		<result column="rightGetWay" property="rightGetWay" />
+		<result column="contractStartDate" property="contractStartDate" />
+		<result column="contractYear" property="contractYear" />
+		<result column="contractEndDate" property="contractEndDate" />
+		<result column="getLandPersonCount"
+			property="getLandPersonCount" />
+		<result column="familyPersonCount" property="familyPersonCount" />
+		<result column="surveyDate" property="surveyDate" />
+		<result column="surveyMemo" property="surveyMemo" />
+		<association property="areaDevision"
+			javaType="AreaDevision">
+			<result column="cityCode" property="cityCode" />
+			<result column="cityName" property="cityName" />
+			<result column="townCode" property="townCode" />
+			<result column="townName" property="townName" />
+			<result column="countryCode" property="countryCode" />
+			<result column="countryName" property="countryName" />
+		</association>
+		<collection property="geneLandRegD" ofType="GeneLandRegD">
+			<result column="hid" property="hid" />
+			<result column="contractorType" property="contractorType" />
+			<result column="idType" property="idType" />
+			<result column="contractorID" property="contractorID" />
+			<result column="contractorName" property="contractorName" />
+			<result column="contractorTel" property="contractorTel" />
+			<result column="cityCode" property="cityCode" />
+			<result column="townCode" property="townCode" />
+			<result column="countryCode" property="countryCode" />
+			<result column="groupName" property="groupName" />
+			<result column="archiveAcreage" property="archiveAcreage" />
+			<result column="operatorName" property="operatorName" />
+			<result column="operatorDate" property="operatorDate" />
+			<result column="zmj" property="zmj" />
+			<result column="yba" property="yba" />
+			<result column="kba" property="kba" />
+			<result column="contractTotalYield"
+				property="contractTotalYield" />
+			<result column="registeredTotalYield"
+				property="registeredTotalYield" />
+			<result column="townName" property="townName" />
+			<result column="countryName" property="countryName" />
+			<result column="idName" property="idName" />
+			<result column="contractorTypeName"
+				property="contractorTypeName" />
+		</collection>
+		<collection property="contract" ofType="Contract">
+			<result column="contractorCode" property="contractorCode" />
+			<result column="graphCode" property="graphCode" />
+			<result column="landCode" property="landCode" />
+			<result column="landName" property="landName" />
+			<result column="contractArea" property="contractArea" />
+			<result column="measurementMu" property="measurementMu" />
+			<result column="eastTo" property="eastTo" />
+			<result column="westTo" property="westTo" />
+			<result column="southTo" property="southTo" />
+			<result column="northTo" property="northTo" />
+			<result column="landLevel" property="landLevel" />
+			<result column="landType" property="landType" />
+			<result column="isBaseLand" property="isBaseLand" />
+			<result column="ownership" property="ownership" />
+			<result column="landClass" property="landClass" />
+			<result column="disputeReason" property="disputeReason" />
+			<result column="landPurpose" property="landPurpose" />
+			<result column="contractStartDate"
+				property="contractStartDate" />
+			<result column="contractYear" property="contractYear" />
+			<result column="contractEndDate" property="contractEndDate" />
+			<result column="landTypeName" property="landTypeName" />
+			<result column="landClassName" property="landClassName" />
+			<result column="zmj" property="zmj" />
+			<result column="actualMu" property="actualMu" />
+		</collection>
+
+
+	</resultMap>
+
+
+	<select id="select" resultMap="peasantMap"
+		parameterType="String">
+		select * from m_peasant p left outer join m_contract c
+		on
+		p.contractorCode = c.contractorCode
+		left outer join b_generallandregd
+		gd on p.ContractorID = gd.ContractorID
+		left outer join m_areadivision a
+		on p.cityCode = a.cityCode and p.TownCode = a.TownCode and
+		p.CountryCode
+		= a.CountryCode
+		where p.ContractorID= #{contractorID} and
+		p.ContractorType='01'
+	</select>
+	<!-- qlz 写 -->
+	<select id="selectinfor" resultMap="peasantMap"
+		parameterType="String">
+		select * from m_peasant p left outer join m_contract c
+		on
+		p.contractorCode =
+		c.contractorCode
+		left outer join b_generallandregd
+		gd on p.ContractorID
+		= gd.ContractorID
+		left outer join m_areadivision a
+		on p.cityCode =
+		a.cityCode and p.TownCode = a.TownCode and
+		p.CountryCode
+		=
+		a.CountryCode
+		where p.ContractorID= #{contractorID} and
+		p.ContractorType='01'
+	</select>
+	<!-- qlz 写 -->
+	<select id="selectById" parameterType="java.util.Map"
+		resultMap="peasantMap">
+		select * from m_peasant p
+		LEFT OUTER JOIN m_areadivision a ON
+		p.CityCode=a.CityCode and
+		p.TownCode=a.TownCode and
+		p.CountryCode=a.CountryCode
+		<where>
+			<if test="contractorID!=null and contractorID!=''">
+				and p.ContractorID = #{contractorID}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectMu" parameterType="String" resultMap="peasantMap">
+		select * from m_peasant p left outer join m_contract c on
+		p.contractorcode=c.contractorcode 
+		<where>
+			<if test="contractorID!=null and contractorID!=''">
+				and p.ContractorID = #{contractorID}
+			</if>
+		</where>
+
+	</select>
+</mapper>

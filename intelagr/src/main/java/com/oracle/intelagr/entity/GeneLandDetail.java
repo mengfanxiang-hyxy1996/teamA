@@ -29,7 +29,25 @@ public class GeneLandDetail extends BaseEntity {
 	private String landTypeName;
 	//土地类别
 	private String landClassName;
+	
+	private CommonData commonDataLandClass;		//qlz  add---------
 
+	private CommonData commonDataLandType;		//qlz  add---------
+
+	
+	
+	public CommonData getCommonDataLandClass() {
+		return commonDataLandClass;
+	}
+	public void setCommonDataLandClass(CommonData commonDataLandClass) {
+		this.commonDataLandClass = commonDataLandClass;
+	}
+	public CommonData getCommonDataLandType() {
+		return commonDataLandType;
+	}
+	public void setCommonDataLandType(CommonData commonDataLandType) {
+		this.commonDataLandType = commonDataLandType;
+	}
 	public Integer getId() {
 		return id;
 	}

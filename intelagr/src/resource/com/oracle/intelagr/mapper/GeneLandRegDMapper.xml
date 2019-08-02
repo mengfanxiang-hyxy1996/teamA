@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oracle.intelagr.mapper.GeneLandRegDMapper">
+	<resultMap type="GeneLandRegD" id="geneLandRegDMap">
+		<id column="id" property="id" />
+		<result column="hid" property="hid" />
+		<result column="contractorType" property="contractorType" />
+		<result column="idType" property="idType" />
+		<result column="contractorID" property="contractorID" />
+		<result column="contractorName" property="contractorName" />
+		<result column="contractorTel" property="contractorTel" />
+		<result column="cityCode" property="cityCode" />
+		<result column="townCode" property="townCode" />
+		<result column="countryCode" property="countryCode" />
+		<result column="groupName" property="groupName" />
+		<result column="archiveAcreage" property="archiveAcreage" />
+		<result column="operatorName" property="operatorName" />
+		<result column="operatorDate" property="operatorDate" />
+		<result column="zmj" property="zmj" />
+		<result column="yba" property="yba" />
+		<result column="kba" property="kba" />
+		<result column="contractTotalYield"
+			property="contractTotalYield" />
+		<result column="registeredTotalYield"
+			property="registeredTotalYield" />
+		<result column="townName" property="townName" />
+		<result column="countryName" property="countryName" />
+		<result column="idName" property="idName" />
+		<result column="contractorTypeName"
+			property="contractorTypeName" />
+			<!--geneLandDetaill 这就是俩ll 不要在改了 0.0 实体类里加了  -->
+		<association property="geneLandDetaill" javaType="GeneLandDetail">
+			<result column="hid" property="hid"/>
+			<result column="landType" property="landType"/>
+			<result column="actualMu" property="actualMu"/>
+			<result column="measurementMu" property="measurementMu"/>
+			<result column="landClass" property="landClass"/>
+			<result column="landName" property="landName"/>
+			<result column="cityCode" property="cityCode"/>
+			<result column="townCode" property="townCode"/>
+			<result column="countryCode" property="countryCode"/>
+			<result column="groupName" property="groupName"/>
+			<result column="remark" property="remark"/>
+			<result column="deleteFlag" property="deleteFlag"/>
+			<result column="createDate" property="createDate"/>
+			<result column="createUserId" property="createUserId"/>
+			<result column="updateDate" property="updateDate"/>
+			<result column="updateUserId" property="updateUserId"/>
+		</association>
+		<association property="geneLandReg" javaType="GeneLandReg">
+			<result column="year" property="year" />
+			<result column="companyCode" property="companyCode" />
+			<result column="companyName" property="companyName" />
+			<result column="applyBatchNo" property="applyBatchNo" />
+			<result column="auditor" property="auditor" />
+			<result column="auditTime" property="auditTime" />
+			<result column="status" property="status" />
+			<result column="reason" property="reason" />
+			<result column="mjsum" property="mjsum" />
+			<result column="remark" property="remark" />
+			<result column="deleteFlag" property="deleteFlag" />
+			<result column="createDate" property="createDate" />
+			<result column="createUserId" property="createUserId" />
+			<result column="updateDate" property="updateDate" />
+			<result column="updateUserId" property="updateUserId" />
+		</association>
+		<association property="areaDevision" javaType="AreaDevision">
+			<result column="cityCode" property="cityCode" />
+			<result column="cityName" property="cityName" />
+			<result column="townCode" property="townCode" />
+			<result column="townName" property="townName" />
+			<result column="countryCode" property="countryCode" />
+			<result column="countryName" property="countryName" />
+		</association>
+		<collection property="geneLandDetail" ofType="GeneLandDetail">
+			<result column="hid" property="hid"/>
+			<result column="landType" property="landType"/>
+			<result column="actualMu" property="actualMu"/>
+			<result column="measurementMu" property="measurementMu"/>
+			<result column="landClass" property="landClass"/>
+			<result column="landName" property="landName"/>
+			<result column="cityCode" property="cityCode"/>
+			<result column="townCode" property="townCode"/>
+			<result column="countryCode" property="countryCode"/>
+			<result column="groupName" property="groupName"/>
+			<result column="remark" property="remark"/>
+			<result column="deleteFlag" property="deleteFlag"/>
+			<result column="createDate" property="createDate"/>
+			<result column="createUserId" property="createUserId"/>
+			<result column="updateDate" property="updateDate"/>
+			<result column="updateUserId" property="updateUserId"/>
+		<association property="commonDataLandClass" javaType="CommonData" resultMap="com.oracle.intelagr.mapper.CommonDataMapper.commonDataMap"></association>
+		<association property="commonDataLandType" javaType="CommonData" >
+			<result column="name1" property="codeValue"/>
+		</association>
+		</collection>
+	</resultMap>
+	<select id="select" resultMap="geneLandRegDMap"
+		parameterType="string">
+		select * from b_generallandregd where ContractorID =
+		#{contractorID}
+	</select>
+
+	<select id="selectSum" resultType="Float" parameterType="string">
+		select SUM(RegisteredTotalYield) from b_generallandregd where ContractorID =
+		#{contractorID}
+	</select>
+	<select id="selectLastId" resultType="int">
+		select last_insert_id();
+	</select>
+	<insert id="insert" parameterType="GeneLandRegD">
+		insert into b_generallandregd
+		values
+		(default,#{hid},#{contractorType},#{idType},#{contractorID},#{contractorName},#{contractorTel},#{cityCode},#{townCode},#{countryCode},#{groupName},#{archiveAcreage},#{contractTotalYield}
+		,#{registeredTotalYield},#{operatorName},#{operatorDate},#{remark},#{deleteFlag},#{createUserId},#{createDate},#{updateUserId},#{updateDate})
+	</insert>
+	
+	<select id="selectBytudi" resultMap="geneLandRegDMap" parameterType="java.util.Map">
+		select * from b_generallandregd gd  LEFT OUTER JOIN b_generallandregh gh
+		on gh.ID=gd.HID LEFT OUTER JOIN  m_areadivision a
+		ON gd.townCode=a.townCode and gd.countryCode = a.countryCode
+		<where>
+			<if test="year!=null and year!=''">
+				and year = #{year}
+			</if>
+			<if test="companyCode!=null and companyCode!=''">
+				and h.companyCode = #{companyCode}
+			</if>
+			<if test="idType!=null and idType!=''">
+				and idType = #{idType}
+			</if>
+			<if test="contractorID!=null and contractorID!=''">
+				and contractorID = #{contractorID}
+			</if>
+		</where>
+	</select>
+	<update id="update" parameterType="GeneLandRegD">
+		update b_generallandregd set
+		archiveAcreage = #{archiveAcreage},contractorTel =
+		#{contractorTel},groupName = #{groupName},operatorName =
+		#{operatorName}
+		where contractorID = #{contractorID}
+	</update>
+	
+
+</mapper>

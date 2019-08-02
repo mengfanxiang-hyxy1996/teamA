@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="/tags/simple" %>
 <!DOCTYPE html>
 <html style="width:100%;height:100%;overflow:hidden">
 <head>
@@ -43,12 +45,16 @@
 				<tr>
 					<td class="table_common_td_label_style">证件类型：</td>
 					<td class="table_common_td_txt_style editableFalse">
-						
+						<!-- <input type="hidden" name="idType" id="idType" value="01"> -->
+						<%-- <select id="idType" name="idType" class="easyui-combobox" data-options='editable:false' style="width:150px;" disabled>
+							<option value="01">身份证</option>
+						</select> --%>
+						<s:select name="IDType" id="idType" entityName="CommonData" value="${pageModel.data.IDType }" codeKey="IDType" hasPleaseSelectOption="true"></s:select>		
 						<span class="span_common_mustinput_style">*</span>
 					</td>
 					<td class="table_common_td_label_style">证件号码：</td>
 					<td class="table_common_td_txt_style">
-						<input name="contractorID" id="contractorID" value="" class="easyui-textbox" style="width:150px;">
+						<input name="contractorID" id="contractorID" value="${peasant.contractorID }" class="easyui-textbox" style="width:150px;">
 						<span class="span_common_mustinput_style">*</span>
 					</td>
 					<td align="center">
@@ -65,15 +71,17 @@
 				<tr>
 					<td class="table_common_td_label_style">承包方类型：</td>
 					<td class="table_common_td_txt_style">
-						
+					<select id="contractorType" name="contractorType" class="easyui-combobox" data-options='editable:false' style="width:150px;" disabled>
+						<option value="01">农户</option>
+					</select>
 					</td>
 					<td class="table_common_td_label_style">承包方：</td>
 					<td class="table_common_td_txt_style">
-						<input class="easyui-textbox" name="tmp_contractorName" id="tmp_contractorName" readonly="readonly" value=""  style="width:150px;">
+						<input class="easyui-textbox" name="tmp_contractorName" id="tmp_contractorName" readonly="readonly" value="${peasant.contractorName }"  style="width:150px;">
 					</td>
 					<td class="table_common_td_label_style">联系方式：</td>
 					<td class="table_common_td_txt_style">
-						<input class="easyui-textbox" name="tmp_contractorTel" id="tmp_contractorTel" value="" style="width:150px;">
+						<input class="easyui-textbox" name="tmp_contractorTel" id="tmp_contractorTel" value="${peasant.contractorTel }" style="width:150px;">
 						<span class="span_common_mustinput_style">*</span>
 					</td>
 				</tr>
@@ -82,20 +90,20 @@
 					<td colspan="5" class="table_common_td_txt_style">
 						<span style='display:none'>
 							<select class="easyui-combobox" id="tmp_cityCode" name="tmp_cityCode">
-								<option value="230184">五常市</option>
+								<option value="${peasant.areaDevision.cityCode }">${peasant.areaDevision.cityName }</option>
 							</select>
 						</span>
 						<select class="easyui-combobox" id="tmp_townCodeView" name="tmp_townCodeView" data-options="editable:false" style="width:150px;" disabled>
-							<option value="" selected></option>
+							<option value="${peasant.areaDevision.townName }" selected>${peasant.areaDevision.townName }</option>
 						</select>
-						<input type="hidden" id="tmp_townCode" name="tmp_townCode" value="">
+						<input type="hidden" id="tmp_townCode" name="tmp_townCode" value="${peasant.areaDevision.townName }">
 
 						<select class="easyui-combobox" id="tmp_countryCodeView" name="tmp_countryCodeView" data-options='editable:false' style="width:150px;" disabled>
-							<option value="" selected></option>
-						</select>
-						<input type="hidden" id="tmp_countryCode" name="tmp_countryCode" value="">
+							<option value="${peasant.areaDevision.countryName }" selected>${peasant.areaDevision.countryName }</option>
+						</select>                   
+						<input type="hidden" id="tmp_countryCode" name="tmp_countryCode" value="${peasant.areaDevision.countryName }">
 
-						<input type="text" class="easyui-textbox" id="tmp_groupName" name="tmp_groupName" value="" readonly="readonly" style="width:200px;">
+						<input type="text" class="easyui-textbox" id="tmp_groupName" name="tmp_groupName" value="${peasant.groupName }" readonly="readonly" style="width:200px;">
 					</td>
 				</tr>
 			</table>
@@ -112,13 +120,13 @@
 				</tr>
 				</thead>
 				<tbody>
-				<c:forEach var="landInfo" items="" varStatus="status">
+				<c:forEach items="${peasant.contract}" var="c" >
 					<tr>
-					<td align="center" height="20"></td>
-					<td align="center" height="20"></td>
-					<td align="center" height="20"></td>
-					<td align="center" height="20"></td>
-					<td align="center" height="20"></td>
+					<td align="center" height="20">${c.landTypeName }</td>
+					<td align="center" height="20">${c.contractArea }</td>
+					<td align="center" height="20">${c.measurementMu }</td>
+					<td align="center" height="20">${c.landClassName }</td>
+					<td align="center" height="20">${c.landName }</td>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -126,20 +134,22 @@
 		</fieldset>
 		<fieldset class="fieldset_common_style">
 			<table class="table_common_style">
+			<c:if test="${flag=='edit'}">
+					<c:forEach items="${peasant.geneLandRegD }" var="con">
 				<tr>
 					<td class="table_common_td_label_style">承包总面积（亩）：</td>
 					<td class="table_common_td_txt_style">
-						<input name="zmj" id="zmj" readonly="readonly" value="" class="easyui-textbox" style="background-color:#B0B0B0;width:150px;">
+						<input name="zmj" id="zmj" readonly="readonly" value="${con.zmj }" class="easyui-textbox" style="background-color:#B0B0B0;width:150px;">
 					</td>
 					<td class="table_common_td_label_style">已备案面积（亩）：</td>
 					<td class="table_common_td_txt_style">
-						<input name="ybamj" id="ybamj" readonly="readonly"  value="" class="easyui-textbox" style="background-color:#B0B0B0;width:150px;">
+						<input name="ybamj" id="ybamj" readonly="readonly"  value="${con.yba}" class="easyui-textbox" style="background-color:#B0B0B0;width:150px;">
 					</td>
 				</tr>
 				<tr>
 					<td class="table_common_td_label_style">可备案面积（亩）：</td>
 					<td class="table_common_td_txt_style">
-						<input name="kbamj" id="kbamj" readonly="readonly" value="" class="easyui-textbox" style="background-color:#B0B0B0;width:150px;">
+						<input name="kbamj" id="kbamj" readonly="readonly" value="${con.kba }" class="easyui-textbox" style="background-color:#B0B0B0;width:150px;">
 					</td>
 					<td class="table_common_td_label_style"><strong>本次备案面积（亩）：</strong></td>
 					<td class="table_common_td_txt_style">
@@ -147,6 +157,31 @@
 						<span class="span_common_mustinput_style">*</span>
 					</td>
 				</tr>
+					</c:forEach>
+					</c:if>
+					<c:if test="${flag==''||flag==null}">
+						<tr>
+					<td class="table_common_td_label_style">承包总面积（亩）：</td>
+					<td class="table_common_td_txt_style">
+						<input name="zmj" id="zmj" readonly="readonly" value="${con.zmj }" class="easyui-textbox" style="background-color:#B0B0B0;width:150px;">
+					</td>
+					<td class="table_common_td_label_style">已备案面积（亩）：</td>
+					<td class="table_common_td_txt_style">
+						<input name="ybamj" id="ybamj" readonly="readonly"  value="${con.yba}" class="easyui-textbox" style="background-color:#B0B0B0;width:150px;">
+					</td>
+				</tr>
+				<tr>
+					<td class="table_common_td_label_style">可备案面积（亩）：</td>
+					<td class="table_common_td_txt_style">
+						<input name="kbamj" id="kbamj" readonly="readonly" value="${con.kba }" class="easyui-textbox" style="background-color:#B0B0B0;width:150px;">
+					</td>
+					<td class="table_common_td_label_style"><strong>本次备案面积（亩）：</strong></td>
+					<td class="table_common_td_txt_style">
+						<input name="tmp_archiveAcreage" id="tmp_archiveAcreage" value="" class="easyui-numberbox" precision="2" min="0.00" max="9999999.99" value="" style="width:150px;">
+						<span class="span_common_mustinput_style">*</span>
+					</td>
+				</tr>
+					</c:if>
 				<tr>   
 					<td class="table_common_td_label_style">经办人：</td>
 					<td class="table_common_td_txt_style">
@@ -168,6 +203,10 @@
 <script type="text/javascript">
 	var lastQcIdNumber = "";
 	$(document).ready(function(){
+		/* var optFlag = "${flag}";
+		if(optFlag=='edit'){
+			expandInfo();
+		} */
 		lastQcIdNumber = "";  //上次确认身份证号
 	});
 
@@ -376,37 +415,44 @@ function expandInfo(){
 	var idType = $("#idType").combobox('getValue');
 	showLoading();
 	lastQcIdNumber = contractorId;
-	Public.ajaxGet('../api/getContratorInfo?contratorId=' + contractorId + "&contractorIDType=" + idType +"&year=${year}", {}, function(e) {
-		hideLoading();
-		if (0 == e.status) {
-			clearDatasTable();
-			initInterfaceInfo( e.data );
-		} else {
-			$.messager.alert('错误', e.msg, 'error');
-			//承包方
-			$("#tmp_contractorName").textbox('setValue', '');
-			//联系方式
-			$("#tmp_contractorTel").textbox('setValue', '');
-			//乡
-			$("#tmp_townCodeView").combobox('setValue', '');
-			//村
-			$("#tmp_countryCodeView").combobox('setValue', '');
-			//乡
-			$("#tmp_townCode").val('');
-			//村
-			$("#tmp_countryCode").val('');
-			//屯
-			$("#tmp_groupName").textbox('setValue', '');
+	$.ajax({
+		url:"${pageContext.request.contextPath}/geneLandReg/getContratorInfo",
+		type:"post",
+		data:{"contractorID":contractorId},
+		success:function(e){
 			
-			//总面积
-			$("#zmj").textbox('setValue', '');
-			//已备案面积
-			$("#ybamj").textbox('setValue', '');
-			//可备案面积
-			$("#kbamj").textbox('setValue', '');
-			clearDatasTable();
-		}
-	});
+			hideLoading();
+			if (200 == e.status) {
+				clearDatasTable();
+				initInterfaceInfo( e );
+			} else {
+				$.messager.alert('错误', e.msg, 'error');
+				//承包方
+				$("#tmp_contractorName").textbox('setValue', '');
+				//联系方式
+				$("#tmp_contractorTel").textbox('setValue', '');
+				//乡
+				$("#tmp_townCodeView").combobox('setValue', '');
+				//村
+				$("#tmp_countryCodeView").combobox('setValue', '');
+				//乡
+				$("#tmp_townCode").val('');
+				//村
+				$("#tmp_countryCode").val('');
+				//屯
+				$("#tmp_groupName").textbox('setValue', '');
+				
+				//总面积
+				$("#zmj").textbox('setValue', '');
+				//已备案面积
+				$("#ybamj").textbox('setValue', '');
+				//可备案面积
+				$("#kbamj").textbox('setValue', '');
+				clearDatasTable();
+			}
+		},
+		dataType:"json"
+	})
 }
 
 function clearDatasTable(){
@@ -415,36 +461,51 @@ function clearDatasTable(){
 }
 
 //初始化信息
-function initInterfaceInfo( data ){
+function initInterfaceInfo( d ){
 	//基本信息
-	var contratorInfo = data.peasant;
+	var contratorInfo = d.data;
 	//承包方类型
 	$("#contractorType").combobox('setValue', contratorInfo.contractorType);
 	//承包方
 	$("#tmp_contractorName").textbox('setValue', contratorInfo.contractorName );
 	//联系方式
 	$("#tmp_contractorTel").textbox('setValue', contratorInfo.contractorTel );
-	var params = {'cityCode': $('#tmp_cityCode').combobox('getValue'), 'townCode':contratorInfo.townCode, 'countryCode':contratorInfo.countryCode};
-	Public.ajaxGet('../areaDevision/getAreaDevisions', params, function(e) {
+	
+	
+ 	$("#tmp_townCodeView").combobox('setValue', contratorInfo.areaDevision.townName);
+	$("#tmp_countryCodeView").combobox('setValue', contratorInfo.areaDevision.countryName);
+	
+	$('#tmp_townCode').val(contratorInfo.areaDevision.townCode);
+	$('#tmp_countryCode').val(contratorInfo.areaDevision.countryCode);
+	/* var params = {'cityCode': contratorInfo.areaDevision.cityCode, 'townCode':contratorInfo.areaDevision.townCode, 'countryCode':contratorInfo.areaDevision.countryCode};
+	$.ajax({
+		url:"${pageContext.request.contextPath}/geneLandReg/getAreaDevisions",
+		type:"post",
+		data:params,
+		success:function(e){
+			if (200 == e.status) {
+				var tmp = JSON.stringify(e.data)
+				
+				addTownAndCountryOptions(JSON.parse(tmp));
+			} else {
+				$.messager.alert('错误','操作失败！' + e.msg, 'error');
+			}
+		},
+		dataType:"json"
+	})  */
+	/* Public.ajaxGet('${pageContext.request.contextPath}/geneLandReg/getAreaDevisions', params, function(e) {
 		if (200 == e.status) {
 			 addTownAndCountryOptions(JSON.parse(e.data));
 		} else {
 			$.messager.alert('错误','操作失败！' + e.msg, 'error');
 		}
-	});
-	alert(contratorInfo.groupName);
+	}); */
+	//alert(contratorInfo.groupName);
 	//屯
-	$("#tmp_groupName").textbox('setValue', contratorInfo.groupName );
-	//初始化总面积、已备案、可备案面积
-	//总面积
-	$("#zmj").textbox('setValue', numberDecimalDigits(data.zmj,2) );
-	//已备案面积
-	$("#ybamj").textbox('setValue', numberDecimalDigits(data.yba,2) );
-	//可备案面积
-	$("#kbamj").textbox('setValue', numberDecimalDigits(data.kba,2) );
+ 	$("#tmp_groupName").textbox('setValue', contratorInfo.groupName );
 	
-	//土地列表信息
-	var landInfo = data.contract;
+ 	//土地列表信息
+	var landInfo = contratorInfo.contract;
 	//alert(data.contract.length);
 	for( var contract in landInfo ){
 		//类型
@@ -467,6 +528,16 @@ function initInterfaceInfo( data ){
 				landName:landlocation
 			});
 	}
+	//初始化总面积、已备案、可备案面积
+	//总面积
+	$("#zmj").textbox('setValue', numberDecimalDigits(contratorInfo.geneLandRegD[0].zmj,2) );
+	//可备案面积
+	$("#kbamj").textbox('setValue', numberDecimalDigits(contratorInfo.geneLandRegD[0].kba,2) );
+	//已备案面积
+	$("#ybamj").textbox('setValue', numberDecimalDigits(contratorInfo.geneLandRegD[0].yba,2) );
+	
+	
+	
 }
 	function check(){
 		if($("#idType").combobox('getValue')==""){
@@ -501,11 +572,11 @@ function initInterfaceInfo( data ){
 			$.messager.alert('警告','您输入的电话号码长度超出系统限制！','warning');
 			return false;
 		}
-		if($("#tmp_countryCode").val() == "" 
+		/* if($("#tmp_countryCode").val() == "" 
 		|| $("#tmp_townCode").val() == "" || $("#tmp_groupName").val()==""){
 			$.messager.alert('警告','请填写住址！','warning');
 			return false;
-		}
+		} */
 		if($("#tmp_archiveAcreage").val()==""){
 			$.messager.alert('警告','请填写本次备案面积！','warning');
 			return false;
@@ -528,7 +599,8 @@ function initInterfaceInfo( data ){
 		return true;
 	}
 	
-	function addTownAndCountryOptions(obj){
+	/* function addTownAndCountryOptions(obj){
+		alert(JSON.stringify(obj));
 		$('#tmp_townCodeView').combobox({
 			valueField:'id',
 			textField:'text',
@@ -541,13 +613,13 @@ function initInterfaceInfo( data ){
 		});
 		$('#tmp_townCodeView').combobox('clear');
 		$('#tmp_countryCodeView').combobox('clear');
-		$('#tmp_townCodeView').combobox('loadData',[{'id':obj[0].id,'text': obj[0].text}]);
-		$('#tmp_countryCodeView').combobox('loadData',[{'id':obj[1].id,'text': obj[1].text}]);
-		$('#tmp_townCodeView').combobox('setValue',obj[0].id);
-		$('#tmp_countryCodeView').combobox('setValue',obj[1].id);
-		$('#tmp_townCode').val(obj[0].id);
-		$('#tmp_countryCode').val(obj[1].id);
-	}
+		$('#tmp_townCodeView').combobox('loadData',[{'id':obj[11].id,'text': obj[11].text}]);
+		$('#tmp_countryCodeView').combobox('loadData',[{'id':obj[13].id,'text': obj[13].text}]);
+		$('#tmp_townCodeView').combobox('setValue',obj[10].id);
+		$('#tmp_countryCodeView').combobox('setValue',obj[12].id);
+		$('#tmp_townCode').val(obj[10].id);
+		$('#tmp_countryCode').val(obj[12].id);
+	} */
 	
 	function setEasyUISelectReadOnly(selectId){
 		var _tempV = $('#' + selectId).combobox('getValue');

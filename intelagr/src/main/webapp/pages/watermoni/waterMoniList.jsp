@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="/tags/simple" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html style="width:100%;height:100%;overflow:hidden">
 <head>
@@ -17,10 +20,10 @@
 <body class="easyui-layout">
 	<div region="center" border="false" style="padding:5px;">	
 		<fieldset id="queryBlock" class="fieldset_common_style">
-				<form id="inputForm" name="inputForm" method="get" action="../waterMoni/search">
-				<input type='hidden' id="pageTotal" name="pageTotal" value="0" />
-				<input type="hidden" id="page" name="page" value="1">
-				<input type="hidden" id="pageSize" name="pageSize" value="15">
+				<form id="inputForm" name="inputForm" method="get" action="${pageContext.request.contextPath}/waterMoni/list">
+				<input type='hidden' id="pageTotal" name="pageTotal" value="${pageModel.totalCount }" />
+				<input type="hidden" id="page" name="page" value="${pageModel.page }">
+				<input type="hidden" id="pageSize" name="pageSize" value="${pageModel.pageSize }">
 				<table class="table_common_style">
 					<tr>
 						<td class="table_common_td_label_query_style">监测日期：</td>
@@ -58,7 +61,7 @@
 								<span class="l-btn-text icon-edit l-btn-icon-left">修改</span>
 							</span>
 						</a>
-						<a href="#" class="easyui-linkbutton" onclick="return deleteRecord();">
+						<a href="#" class="easyui-linkbutton" onclick="deleteRecord();">
 							<span class="l-btn-left">
 								<span class="l-btn-text icon-remove l-btn-icon-left">删除</span>
 							</span>
@@ -85,7 +88,25 @@
 				</tr>
 			</thead>
 			<tbody>
-						
+				
+				<c:forEach items="${pageModel.result }" var="Water">
+				<tr>
+					<td height="30" align="center" nowrap>${Water.id }</td>
+					<td height="30" align="center" nowrap><f:formatDate value="${Water.monitorDate }" pattern="yyyy-MM-dd"/></td>
+					<td height="30" align="center" nowrap>${Water.moniPoint.monitorPointName }</td>
+					<td height="30" align="center" nowrap>${Water.ph }</td>
+					<td height="30" align="center" nowrap>${Water.doValue }</td>
+					<td height="30" align="center" nowrap>${Water.codmn }</td>
+					<td height="30" align="center" nowrap>${Water.bod5 }</td>
+					<td height="30" align="center" nowrap>${Water.nh3n }</td>
+					<td height="30" align="center" nowrap>${Water.tp }</td>
+					<td height="30" align="center" nowrap>${Water.codcr }</td>
+					<td height="30" align="center" nowrap>${Water.createUserId }</td>
+					<td height="30" align="center" nowrap>${Water.createDate }</td>
+					
+					
+				</tr>
+				</c:forEach>			
 			</tbody>
 		</table>
 	</div>
@@ -135,7 +156,7 @@ function deleteRecord(id){
 				var length = rows.length;
 				for (var i = 0; i < rows.length; i++)
 					ids.push(rows[i].id);
-				Public.ajaxGet('delete', {
+		 		Public.ajaxGet('${pageContext.request.contextPath}/waterMoni/delete', {
 					ids : ids
 				}, function(e) {
 					if (200 == e.status) {
@@ -145,7 +166,7 @@ function deleteRecord(id){
 						$.messager.alert('错误','删除失败！' + e.msg,'error');
 					}
 					
-				});
+				}); 
 		    }
 		});
 }
@@ -168,7 +189,7 @@ function edit(id){
 	    height: 430,
 	    closed: false,
 	    cache: false,
-	    href: 'editInput?id='+ id,
+	    href: '${pageContext.request.contextPath}/waterMoni/edit?id='+id,
 	    modal: true
 	});
 }
@@ -180,7 +201,7 @@ function add(){
 	    height: 430,
 	    closed: false,
 	    cache: false,
-	    href: 'waterMoniEdit.jsp',
+	    href: '${pageContext.request.contextPath}/waterMoni/add',
 	    modal: true
 	});
 }
@@ -214,7 +235,7 @@ function view(){
 	    height: 440,
 	    closed: false,
 	    cache: false,
-	    href: 'view?id='+ id,
+	    href: '${pageContext.request.contextPath}/waterMoni/view?id='+ id,
 	    modal: true
 	});
 }
