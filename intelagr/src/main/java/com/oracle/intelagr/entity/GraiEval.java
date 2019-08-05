@@ -1,7 +1,9 @@
 package com.oracle.intelagr.entity;
 
+import java.io.Serializable;
+import java.util.List;
 
-public class GraiEval extends BaseEntity {
+public class GraiEval extends BaseEntity implements Serializable{
 	
 	private Integer id;
 	//年度
@@ -14,6 +16,8 @@ public class GraiEval extends BaseEntity {
 	private Float maxYield;
 	//出米率
 	private Float milledriceRate;
+	
+	private List ids;
 
 	public Integer getId() {
 		return id;
@@ -51,4 +55,12 @@ public class GraiEval extends BaseEntity {
 	public void setMilledriceRate(Float milledriceRate) {
 		this.milledriceRate = milledriceRate;
 	}
+	public List getIds() {
+		return ids;
+	}
+	public void setIds(List ids) {
+		this.ids = ids;
+	}
+	
+	
 }

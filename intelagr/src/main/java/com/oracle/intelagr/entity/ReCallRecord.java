@@ -1,6 +1,7 @@
 package com.oracle.intelagr.entity;
 
 import java.util.Date;
+import java.util.List;
 
 
 
@@ -11,7 +12,7 @@ public class ReCallRecord extends BaseEntity {
 	//处理人
 	private String processor;
 	//处理日期
-	private Date settleDate;
+	private String settleDate;
 	//批次号
 	private String batchNo;
 	//产品编号
@@ -20,6 +21,15 @@ public class ReCallRecord extends BaseEntity {
 	private String recallReason;
 	//产品名称
 	private String productName;
+	//开始时间
+	private String beginDate; 
+	//结束时间
+	private String endDate;
+	//产品
+	private Product product;
+    //公司	
+	private Company company;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -38,10 +48,10 @@ public class ReCallRecord extends BaseEntity {
 	public void setProcessor(String processor) {
 		this.processor = processor;
 	}
-	public Date getSettleDate() {
+	public String getSettleDate() {
 		return settleDate;
 	}
-	public void setSettleDate(Date settleDate) {
+	public void setSettleDate(String settleDate) {
 		this.settleDate = settleDate;
 	}
 	public String getBatchNo() {
@@ -68,4 +78,30 @@ public class ReCallRecord extends BaseEntity {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+	public String getBeginDate() {
+		return beginDate;
+	}
+	public void setBeginDate(String beginDate) {
+		this.beginDate = beginDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	public Company getCompany() {
+		return company;
+	}
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+    
 }

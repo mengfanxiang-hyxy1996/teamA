@@ -9,7 +9,7 @@ public class BlackListD extends BaseEntity {
 	//企业ID
 	private String companyCode;
 	//拉黑截止日期
-	private Date blackListEndDate;
+	private String blackListEndDate;
 	//原因
 	private String blackListReason;
 	//处理人
@@ -17,8 +17,9 @@ public class BlackListD extends BaseEntity {
 	//时长
 	private String blackListTimeLimit;
 	//处理日期
-	private Date settleDate;
-
+	private String settleDate;
+	//公司
+	private Company company;
 	public Integer getId() {
 		return id;
 	}
@@ -31,10 +32,10 @@ public class BlackListD extends BaseEntity {
 	public void setCompanyCode(String companyCode) {
 		this.companyCode = companyCode;
 	}
-	public Date getBlackListEndDate() {
+	public String getBlackListEndDate() {
 		return blackListEndDate;
 	}
-	public void setBlackListEndDate(Date blackListEndDate) {
+	public void setBlackListEndDate(String blackListEndDate) {
 		this.blackListEndDate = blackListEndDate;
 	}
 	public String getBlackListReason() {
@@ -55,10 +56,19 @@ public class BlackListD extends BaseEntity {
 	public void setBlackListTimeLimit(String blackListTimeLimit) {
 		this.blackListTimeLimit = blackListTimeLimit;
 	}
-	public Date getSettleDate() {
+	public String getSettleDate() {
 		return settleDate;
 	}
-	public void setSettleDate(Date settleDate) {
+	public void setSettleDate(String settleDate) {
 		this.settleDate = settleDate;
 	}
+	public Company getCompany() {
+		return company;
+	}
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+
+	
 }

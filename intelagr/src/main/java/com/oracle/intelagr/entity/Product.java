@@ -13,16 +13,7 @@ public class Product extends BaseEntity {
 	private String unit;
 	//产品净重
 	private float weight;
-	private Company company;
-	
-	public Company getCompany() {
-		return company;
-	}
-
-	public void setCompany(Company company) {
-		this.company = company;
-	}
-
+		
 	/** default constructor */
 	public Product() {
 	}

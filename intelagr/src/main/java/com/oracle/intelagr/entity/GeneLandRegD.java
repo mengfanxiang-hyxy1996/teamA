@@ -1,7 +1,6 @@
 package com.oracle.intelagr.entity;
 
 import java.util.Date;
-import java.util.List;
 
 
 
@@ -48,40 +47,7 @@ public class GeneLandRegD extends BaseEntity {
 	private String countryName;   //村屯名称
 	private String idName;        //证件类型名称
 	private String contractorTypeName;  //承包方类型名称
-	
-	private List<GeneLandDetail> geneLandDetail;
-	
-	private GeneLandDetail geneLandDetaill;
-	
-	public GeneLandDetail getGeneLandDetaill() {
-		return geneLandDetaill;
-	}
-	public void setGeneLandDetaill(GeneLandDetail geneLandDetaill) {
-		this.geneLandDetaill = geneLandDetaill;
-	}
-	private GeneLandReg geneLandReg;
-	
-	private AreaDevision areaDevision;
-	
-	public AreaDevision getAreaDevision() {
-		return areaDevision;
-	}
-	public void setAreaDevision(AreaDevision areaDevision) {
-		this.areaDevision = areaDevision;
-	}
-	public GeneLandReg getGeneLandReg() {
-		return geneLandReg;
-	}
-	public void setGeneLandReg(GeneLandReg geneLandReg) {
-		this.geneLandReg = geneLandReg;
-	}
 
-	public List<GeneLandDetail> getGeneLandDetail() {
-		return geneLandDetail;
-	}
-	public void setGeneLandDetail(List<GeneLandDetail> geneLandDetail) {
-		this.geneLandDetail = geneLandDetail;
-	}
 	public Integer getId() {
 		return id;
 	}
@@ -220,16 +186,4 @@ public class GeneLandRegD extends BaseEntity {
 	public void setContractorTypeName(String contractorTypeName) {
 		this.contractorTypeName = contractorTypeName;
 	}
-	@Override
-	public String toString() {
-		return "GeneLandRegD [id=" + id + ", hid=" + hid + ", contractorType=" + contractorType + ", idType=" + idType
-				+ ", contractorID=" + contractorID + ", contractorName=" + contractorName + ", contractorTel="
-				+ contractorTel + ", cityCode=" + cityCode + ", townCode=" + townCode + ", countryCode=" + countryCode
-				+ ", groupName=" + groupName + ", archiveAcreage=" + archiveAcreage + ", operatorName=" + operatorName
-				+ ", operatorDate=" + operatorDate + ", zmj=" + zmj + ", yba=" + yba + ", kba=" + kba
-				+ ", contractTotalYield=" + contractTotalYield + ", registeredTotalYield=" + registeredTotalYield
-				+ ", townName=" + townName + ", countryName=" + countryName + ", idName=" + idName
-				+ ", contractorTypeName=" + contractorTypeName + ", geneLandDetail=" + geneLandDetail + "]";
-	}
-	
 }

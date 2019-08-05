@@ -1,9 +1,6 @@
 package com.oracle.intelagr.entity;
 
 import java.util.Date;
-import java.util.List;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 
 public class GeneLandReg extends BaseEntity {
@@ -26,32 +23,7 @@ public class GeneLandReg extends BaseEntity {
 	private String reason;
 	
 	private Float mjsum;
-	
-	private GeneLandRegD geneLandRegD;
-	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date beginDate;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date endDate;
-	
-	public Date getBeginDate() {
-		return beginDate;
-	}
-	public void setBeginDate(Date beginDate) {
-		this.beginDate = beginDate;
-	}
-	public Date getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-	public GeneLandRegD getGeneLandRegD() {
-		return geneLandRegD;
-	}
-	public void setGeneLandRegD(GeneLandRegD geneLandRegD) {
-		this.geneLandRegD = geneLandRegD;
-	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -113,13 +85,5 @@ public class GeneLandReg extends BaseEntity {
 	public void setMjsum(Float mjsum) {
 		this.mjsum = mjsum;
 	}
-	@Override
-	public String toString() {
-		return "GeneLandReg [id=" + id + ", year=" + year + ", companyCode=" + companyCode + ", companyName="
-				+ companyName + ", applyBatchNo=" + applyBatchNo + ", auditor=" + auditor + ", auditTime=" + auditTime
-				+ ", status=" + status + ", reason=" + reason + ", mjsum=" + mjsum + ", geneLandRegD=" + geneLandRegD
-				+ "]";
-	}
-	
 	
 }

@@ -10,10 +10,12 @@ package com.oracle.intelagr.entity;
 public class YearCode extends BaseEntity{
 	// 自增长主键
 	private Integer id;
-	// 企业名称
+	// 
 	private String yearCode;
-	// 企业名称
+	// 
 	private String yearName;
+	
+	private int displayseq;
 	
 	public Integer getId() {
 		return id;
@@ -33,4 +35,11 @@ public class YearCode extends BaseEntity{
 	public void setYearName(String yearName) {
 		this.yearName = yearName;
 	}
+	public int getDisplayseq() {
+		return displayseq;
+	}
+	public void setDisplayseq(int displayseq) {
+		this.displayseq = displayseq;
+	}
+	
 }
